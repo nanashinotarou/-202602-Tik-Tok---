@@ -799,6 +799,62 @@
             </details>
         </section>
 
+        <!-- SECTION 5: TODAY HIGHLIGHT (NEW) -->
+        <section>
+            <h2><i class="fa-solid fa-clock"></i> 5. Context Awareness</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    「今、どこ？」を教える</summary>
+                <div class="details-content">
+                    <p><strong>デジタル版の「You Are Here（現在地）」マップ</strong></p>
+                    <p>カレンダーを見た瞬間、「で、今日はどこだっけ？」と探す時間はわずか数秒ですが、毎日続くとストレスになります。<br>
+                        そこで、今日の日付のマスだけ<strong>「赤枠とTODAYバッジ」</strong>で自動的に強調するようにしました。</p>
+                    <p>ページを開いた瞬間に「あ、今日はここからだな」と脳が即座に理解できるので、迷いなく学習をスタートできます。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Date Object
+                    & DOM Logic</summary>
+                <div class="code-block"><span class="token sel">const</span> highlightToday = () => {
+                    <span class="token comment">// Get System Date</span>
+                    const today = new <span class="token func">Date</span>();
+
+                    <span class="token comment">// Strict constraints for this specific training period</span>
+                    if (today.getFullYear() !== 2026) return;
+
+                    <span class="token comment">// Logic to find the correct cell DOM element</span>
+                    const target = findCell(today.getMonth(), today.getDate());
+
+                    <span class="token comment">// Apply CSS class</span>
+                    if (target) target.classList.<span class="token func">add</span>(<span
+                        class="token val">'is-today'</span>);
+                    };
+                </div>
+                <div class="details-content">
+                    <p>端末の時計（System Date）を取得し、研修期間（2026年2月〜3月上旬）に該当する場合のみ動作します。<br>
+                        JSで動的にクラス <code>.is-today</code>
+                        を付与し、CSSのアニメーション（<code>@keyframes bounce-badge</code>）で視線を集める演出を行っています。</p>
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Just-in-Time Information</summary>
+                <div class="details-content">
+                    <p><strong>時間的迷子の防止 (Temporal Disorientation)</strong></p>
+                    <p>ユーザーは常に「自分のコンテキスト（今の状況）」と「コンテンツ」を照らし合わせる作業を行っています。<br>
+                        システム側から能動的に<strong>「今はここです（Today）」</strong>と提示する（Just-in-Time）ことで、
+                        ユーザーがカレンダーをスキャンして現在地を特定する認知コストを「ゼロ」にしています。</p>
+                    <p>これも「学習を開始するまでの摩擦（Friction）」を極限まで減らすためのUX戦略の一つです。</p>
+                </div>
+            </details>
+        </section>
+
         <div style="text-align:center;">
             <a href="index.html" class="back-btn">← Portal UI</a>
         </div>
