@@ -258,10 +258,12 @@
             overflow-y: auto;
             flex: 1;
             padding-right: 10px;
-            padding-bottom: 60px;
+            padding-bottom: 80px;
+            /* Ensure space for fixed button */
+            min-height: 0;
+            /* FIX: Flexbox scroll issue */
         }
 
-        /* Added padding-bottom for dev-link space */
         .curriculum-list::-webkit-scrollbar {
             width: 6px;
         }
@@ -346,7 +348,8 @@
 
         /* FIX: Dev Link Position */
         .dev-link {
-            position: absolute;
+            position: fixed;
+            /* Changed to fixed */
             bottom: 20px;
             right: 20px;
             background: #fff;

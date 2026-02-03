@@ -448,6 +448,25 @@
             </details>
         </section>
 
+        <section>
+            <h2><i class="fa-solid fa-layer-group"></i> 4. Floating Action Button</h2>
+            <p>このページへのリンクボタンは、画面の右下に固定（Fixed）されています。</p>
+            <div class="code-block"><span class="token sel">.dev-link</span> {
+                <span class="token prop">position</span>: fixed;
+                <span class="token prop">bottom</span>: 20px;
+                <span class="token prop">right</span>: 20px;
+                <span class="token prop">z-index</span>: 100;
+                }
+            </div>
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> なぜ Fixed なの？</summary>
+                <div class="details-content">
+                    <p>リストの量が増えても、ユーザーはいつでも「現在地の解説（Design Notes）」にアクセスできるようにするためです。
+                        コンテンツに埋もれさせず、常に手の届く場所にツールを置く「FAB (Floating Action Button)」の考え方です。</p>
+                </div>
+            </details>
+        </section>
+
         <div style="text-align:center;">
             <a href="index.html" class="back-btn">← ポータルに戻る</a>
         </div>
