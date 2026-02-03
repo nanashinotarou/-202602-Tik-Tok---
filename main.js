@@ -160,4 +160,40 @@ document.addEventListener('DOMContentLoaded', () => {
         item.addEventListener('mouseleave', () => toggleHighlight(item.id, false));
     });
 
+    // --- HIGHLIGHT TODAY (Valid until Mar 7, 2026) ---
+    const highlightToday = () => {
+        const today = new Date();
+        // Check if year is 2026 (Strict constraint)
+        if (today.getFullYear() !== 2026) return;
+
+        const m = today.getMonth(); // 0=Jan, 1=Feb, 2=Mar
+        const d = today.getDate();
+        let targetCell = null;
+
+        if (m === 1) { // February
+            // Find regular cell with this number (excluding other-month cells)
+            const cells = document.querySelectorAll('.cal-cell:not(.other-month)');
+            cells.forEach(c => {
+                const numSpan = c.querySelector('.date-num');
+                if (numSpan && parseInt(numSpan.textContent) === d) {
+                    targetCell = c;
+                }
+            });
+        } else if (m === 2 && d <= 7) { // March 1st - 7th (Next Month display)
+            // Mar 1-7 are shown as .other-month cells at the end
+            const cells = document.querySelectorAll('.cal-cell.other-month');
+            cells.forEach(c => {
+                // These cells usually just have text "1", "2" etc.
+                if (parseInt(c.textContent.trim()) === d) {
+                    targetCell = c;
+                }
+            });
+        }
+
+        if (targetCell) {
+            targetCell.classList.add('is-today');
+        }
+    };
+    highlightToday();
+
 });
