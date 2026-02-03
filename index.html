@@ -32,7 +32,6 @@
             overflow: hidden;
         }
 
-        /* THE MODAL CONTAINER */
         .modal-container {
             width: 95%;
             max-width: 1300px;
@@ -46,19 +45,150 @@
             position: relative;
         }
 
-        /* LEFT: CALENDAR */
+        /* CALENDAR */
         .calendar-area {
+            height: 100%;
             border-right: 1px solid #eee;
-            height: 100%;
+            overflow-y: auto;
         }
 
-        iframe {
+        /* Added overflow-y */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-auto-rows: minmax(80px, auto);
+            /* FIX: Fix vertical stretching */
             width: 100%;
-            height: 100%;
-            border: none;
+            background: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+            gap: 5px;
         }
 
-        /* RIGHT: LIST */
+        .day-name {
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+        }
+
+        /* Explicit height for header */
+        .cal-cell {
+            border-top: 1px solid #eee;
+            padding: 5px;
+            position: relative;
+            font-family: "Roboto", sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            transition: 0.2s;
+            border-radius: 8px;
+        }
+
+        .cal-cell.other-month {
+            color: #ccc;
+            background: #fafafa;
+        }
+
+        .cal-cell.has-event {
+            cursor: pointer;
+            background: #f0f4ff;
+            border-top-color: transparent;
+        }
+
+        .cal-cell.has-event:hover {
+            background: #5c6bc0;
+            color: #fff;
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 10px 20px rgba(92, 107, 192, 0.3);
+        }
+
+        .date-num {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .ev-pill {
+            background: #5c6bc0;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            opacity: 0.8;
+        }
+
+        .cal-cell.has-event:hover .ev-pill {
+            background: #fff;
+            color: #5c6bc0;
+        }
+
+        /* TOOLTIP */
+        .cal-popup {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #2d3436;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
+        }
+
+        .cal-popup::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: #2d3436 transparent transparent transparent;
+        }
+
+        .cal-cell.has-event:hover .cal-popup {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        /* --- SYNC HIGHLIGHT (NEW CSS) --- */
+        .cal-cell.active-sync {
+            background: #3949ab !important;
+            color: #fff !important;
+            transform: scale(1.05);
+            z-index: 15;
+            box-shadow: 0 10px 20px rgba(57, 73, 171, 0.4);
+        }
+
+        .cal-cell.active-sync .ev-pill {
+            background: #fff;
+            color: #3949ab;
+        }
+
+        .c-item.active-sync {
+            border-color: #3949ab;
+            background: #e8eaf6;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.15);
+        }
+
+        /* LIST */
         .list-area {
             padding: 40px;
             display: flex;
@@ -69,7 +199,6 @@
             position: relative;
         }
 
-        /* HEADER */
         .brand-header {
             margin-bottom: 30px;
             border-bottom: 4px solid #9fa8da;
@@ -100,7 +229,6 @@
             margin-top: 5px;
         }
 
-        /* SHORTCUT BUTTON (Fixed: Harmonized Indigo) */
         .shortcut-btn {
             display: flex;
             align-items: center;
@@ -109,7 +237,6 @@
             width: 100%;
             padding: 18px;
             border-radius: 12px;
-            /* 修正：サイト全体のトーンに合わせたインディゴグラデーション */
             background: linear-gradient(135deg, #5c6bc0 0%, #3949ab 100%);
             color: #fff;
             text-decoration: none;
@@ -127,13 +254,14 @@
             background: linear-gradient(135deg, #7986cb 0%, #303f9f 100%);
         }
 
-        /* LIST */
         .curriculum-list {
             overflow-y: auto;
             flex: 1;
             padding-right: 10px;
+            padding-bottom: 60px;
         }
 
+        /* Added padding-bottom for dev-link space */
         .curriculum-list::-webkit-scrollbar {
             width: 6px;
         }
@@ -143,7 +271,6 @@
             border-radius: 3px;
         }
 
-        /* ITEM CARD */
         .c-item {
             display: flex;
             gap: 20px;
@@ -153,6 +280,9 @@
             margin-bottom: 15px;
             transition: 0.2s;
             align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
         }
 
         .c-item:hover {
@@ -161,7 +291,6 @@
             transform: translateX(5px);
         }
 
-        /* DATE BOX */
         .date-box {
             background: #7986cb;
             color: #fff;
@@ -188,7 +317,6 @@
             font-weight: 700;
         }
 
-        /* CONTENT */
         .c-content {
             flex: 1;
         }
@@ -216,7 +344,7 @@
             color: #888;
         }
 
-        /* FOOTER LINK */
+        /* FIX: Dev Link Position */
         .dev-link {
             position: absolute;
             bottom: 20px;
@@ -231,6 +359,7 @@
             color: #5c6bc0;
             transition: 0.2s;
             border: 1px solid #e8eaf6;
+            z-index: 100;
         }
 
         .dev-link:hover {
@@ -260,6 +389,11 @@
                 border-bottom: 1px solid #eee;
             }
 
+            .calendar-grid {
+                padding: 10px;
+                grid-template-rows: 40px repeat(5, 1fr);
+            }
+
             .list-area {
                 height: auto;
             }
@@ -268,12 +402,98 @@
 </head>
 
 <body>
-
     <div class="modal-container">
         <div class="calendar-area">
-            <iframe
-                src="https://calendar.google.com/calendar/embed?src=a2cacb549dadf024da5f05f58862281de6b27aba7edd016b9361de3a98b2773d%40group.calendar.google.com&ctz=Asia%2FTokyo&mode=MONTH&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&dates=20260201%2F20260301"
-                frameborder="0" scrolling="no"></iframe>
+            <div class="calendar-grid">
+                <div class="day-name">Sun</div>
+                <div class="day-name">Mon</div>
+                <div class="day-name">Tue</div>
+                <div class="day-name">Wed</div>
+                <div class="day-name">Thu</div>
+                <div class="day-name">Fri</div>
+                <div class="day-name">Sat</div>
+
+                <div class="cal-cell"><span class="date-num">1</span></div>
+                <div class="cal-cell"><span class="date-num">2</span></div>
+
+                <div class="cal-cell has-event" data-day="d01"
+                    onclick="window.location.href='vol01-1_tiktok_start.html'">
+                    <span class="date-num">3</span><span class="ev-pill">DAY 01</span>
+                    <div class="cal-popup">Vol.1 TikTok入門<br>(Click to Open)</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d02">
+                    <span class="date-num">4</span><span class="ev-pill">DAY 02</span>
+                    <div class="cal-popup">Vol.2 アルゴリズム<br>(Click to Open)</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d03">
+                    <span class="date-num">5</span><span class="ev-pill">DAY 03</span>
+                    <div class="cal-popup">Vol.3 コンテンツ企画<br>(Click to Open)</div>
+                </div>
+                <div class="cal-cell"><span class="date-num">6</span></div>
+                <div class="cal-cell"><span class="date-num">7</span></div>
+
+                <div class="cal-cell"><span class="date-num">8</span></div>
+                <div class="cal-cell"><span class="date-num">9</span></div>
+                <div class="cal-cell has-event" data-day="d04"><span class="date-num">10</span><span class="ev-pill">DAY
+                        04</span>
+                    <div class="cal-popup">Vol.4 動画撮影</div>
+                </div>
+                <div class="cal-cell"><span class="date-num">11</span></div>
+                <div class="cal-cell has-event" data-day="d05"><span class="date-num">12</span><span class="ev-pill">DAY
+                        05</span>
+                    <div class="cal-popup">Vol.5 編集ツール</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d06"><span class="date-num">13</span><span class="ev-pill">DAY
+                        06</span>
+                    <div class="cal-popup">Vol.6 音源</div>
+                </div>
+                <div class="cal-cell"><span class="date-num">14</span></div>
+
+                <div class="cal-cell"><span class="date-num">15</span></div>
+                <div class="cal-cell"><span class="date-num">16</span></div>
+                <div class="cal-cell has-event" data-day="d07"><span class="date-num">17</span><span class="ev-pill">DAY
+                        07</span>
+                    <div class="cal-popup">Vol.7 SEO</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d08"><span class="date-num">18</span><span class="ev-pill">DAY
+                        08</span>
+                    <div class="cal-popup">Vol.8 Interactive</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d09"><span class="date-num">19</span><span class="ev-pill">DAY
+                        09</span>
+                    <div class="cal-popup">Vol.9 Live</div>
+                </div>
+                <div class="cal-cell"><span class="date-num">20</span></div>
+                <div class="cal-cell"><span class="date-num">21</span></div>
+
+                <div class="cal-cell"><span class="date-num">22</span></div>
+                <div class="cal-cell"><span class="date-num">23</span></div>
+                <div class="cal-cell has-event" data-day="d10"><span class="date-num">24</span><span class="ev-pill">DAY
+                        10</span>
+                    <div class="cal-popup">Vol.10 Analytics</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d11"><span class="date-num">25</span><span class="ev-pill">DAY
+                        11</span>
+                    <div class="cal-popup">Vol.11 Cross</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d12"><span class="date-num">26</span><span class="ev-pill">DAY
+                        12</span>
+                    <div class="cal-popup">Vol.12 Collab</div>
+                </div>
+                <div class="cal-cell has-event" data-day="d13"><span class="date-num">27</span><span class="ev-pill">DAY
+                        13</span>
+                    <div class="cal-popup">Vol.13 Final</div>
+                </div>
+                <div class="cal-cell"><span class="date-num">28</span></div>
+
+                <div class="cal-cell other-month">1</div>
+                <div class="cal-cell other-month">2</div>
+                <div class="cal-cell other-month">3</div>
+                <div class="cal-cell other-month">4</div>
+                <div class="cal-cell other-month">5</div>
+                <div class="cal-cell other-month">6</div>
+                <div class="cal-cell other-month">7</div>
+            </div>
         </div>
 
         <div class="list-area">
@@ -281,98 +501,97 @@
                 <h1>TIKTOK <span>MARKETING</span></h1>
                 <div class="subtitle">February 2026 Curriculum</div>
             </div>
-
             <a href="vol01-1_tiktok_start.html" class="shortcut-btn">
                 <i class="fa-solid fa-play"></i> LATEST: Vol.1 テキストを開く
             </a>
-
             <div class="curriculum-list">
-                <div class="c-item">
+                <a href="vol01-1_tiktok_start.html" class="c-item" id="d01">
                     <div class="date-box" style="background:#5c6bc0;"><span class="db-month">FEB</span><span
                             class="db-day">03</span></div>
                     <div class="c-content"><span class="day-tag">DAY 01</span>
                         <h4>TikTok入門</h4>
                         <p>基礎知識と活用法</p>
                     </div>
-                </div>
-                <div class="c-item">
+                </a>
+
+                <div class="c-item" id="d02">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">04</span></div>
                     <div class="c-content"><span class="day-tag">DAY 02</span>
                         <h4>アルゴリズムの理解</h4>
                         <p>おすすめに載る仕組み</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d03">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">05</span></div>
                     <div class="c-content"><span class="day-tag">DAY 03</span>
                         <h4>コンテンツ企画</h4>
                         <p>アイデア出しのコツ</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d04">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">10</span></div>
                     <div class="c-content"><span class="day-tag">DAY 04</span>
                         <h4>動画撮影</h4>
                         <p>基本テクニックと画角</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d05">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">12</span></div>
                     <div class="c-content"><span class="day-tag">DAY 05</span>
                         <h4>編集ツール</h4>
                         <p>CapCut等の使いこなし</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d06">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">13</span></div>
                     <div class="c-content"><span class="day-tag">DAY 06</span>
                         <h4>音楽とサウンド</h4>
                         <p>効果的な音源選定</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d07">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">17</span></div>
                     <div class="c-content"><span class="day-tag">DAY 07</span>
                         <h4>最適化（SEO）</h4>
                         <p>キャプションとハッシュタグ</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d08">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">18</span></div>
                     <div class="c-content"><span class="day-tag">DAY 08</span>
                         <h4>インタラクティブ機能</h4>
                         <p>デュエット/リミックス活用</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d09">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">19</span></div>
                     <div class="c-content"><span class="day-tag">DAY 09</span>
                         <h4>ライブ配信</h4>
                         <p>実践とテクニック</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d10">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">24</span></div>
                     <div class="c-content"><span class="day-tag">DAY 10</span>
                         <h4>アナリティクス</h4>
                         <p>インサイトの読み解き方</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d11">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">25</span></div>
                     <div class="c-content"><span class="day-tag">DAY 11</span>
                         <h4>クロス戦略</h4>
                         <p>他SNSとの連携</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d12">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">26</span></div>
                     <div class="c-content"><span class="day-tag">DAY 12</span>
                         <h4>コラボレーション</h4>
                         <p>ネットワーキング</p>
                     </div>
                 </div>
-                <div class="c-item">
+                <div class="c-item" id="d13">
                     <div class="date-box"><span class="db-month">FEB</span><span class="db-day">27</span></div>
                     <div class="c-content"><span class="day-tag">DAY 13</span>
                         <h4>最終課題</h4>
@@ -380,13 +599,10 @@
                     </div>
                 </div>
             </div>
-
-            <a href="index_dev_notes.html" class="dev-link">
-                <i class="fa-solid fa-wand-magic-sparkles"></i> Design Notes
-            </a>
+            <a href="index_dev_notes.html" class="dev-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Design
+                Notes</a>
         </div>
     </div>
-
     <script src="main.js"></script>
 </body>
 

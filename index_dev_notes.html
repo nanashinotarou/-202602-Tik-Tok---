@@ -419,6 +419,35 @@
             </details>
         </section>
 
+
+
+        <section>
+            <h2><i class="fa-solid fa-arrows-rotate"></i> 3. Synchronized Highlighting</h2>
+            <p>カレンダーの日付にマウスを乗せると、右側のリストが連動して光ります。</p>
+
+            <div
+                style="background:#fff3e0; padding:15px; border-radius:8px; border-left:4px solid #ff9800; margin-bottom:20px; font-size:0.9rem;">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> UX UPDATE:</strong>
+                <br>当初は「リストの該当箇所まで自動スクロール」させていましたが、マウスを動かすたびに画面がガクガク動くため廃止しました。
+                <strong>「ユーザーの操作（視線）を邪魔しない」</strong>ことが、派手な機能よりも重要です。
+            </div>
+
+            <div class="code-block"><span class="token sel">const</span> toggleHighlight = (id, isActive) => {
+                <span class="token comment">// スクロール処理は削除！クラスの付け替えだけを行う</span>
+                target.classList.<span class="token func">toggle</span>(<span class="token val">'active-sync'</span>,
+                isActive);
+                };
+            </div>
+
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> User Agency（ユーザーの主体性）</summary>
+                <div class="details-content">
+                    <p>Webサイトが勝手に動くと、ユーザーは「コントロールを奪われた」と感じて不快になります。
+                        特にホバー（Hover）のような軽い操作で、スクロールのような重い変化を起こすべきではありません。</p>
+                </div>
+            </details>
+        </section>
+
         <div style="text-align:center;">
             <a href="index.html" class="back-btn">← ポータルに戻る</a>
         </div>

@@ -133,4 +133,31 @@ document.addEventListener('DOMContentLoaded', () => {
         { q: "Geminiが得意とする「マルチモーダル」とはどういう意味ですか？", options: { A: "複数の言語を翻訳できること", B: "テキストだけでなく、画像や音声など複数の種類の情報を扱えること", C: "複数のユーザーで同時に作業できること", D: "複数のアプリを同時に起動できること" }, correct: "B", rationale: "テキスト、コード、画像、音声、動画など、異なる形式のデータを理解・生成できる能力を指します。" },
         { q: "TikTokのリサーチ（探索）を行う主な目的として、初期段階で最も重要なのは？", options: { A: "競合の動画に低評価を押すため", B: "流行っている曲や動画のスタイルを知り、自分の企画の参考にするため", C: "コメント欄で自分のチャンネルを宣伝するため", D: "単に時間を潰すため" }, correct: "B", rationale: "「今何がウケているか」というトレンド感覚を養うことが、伸びる動画を作る第一歩です。" }
     ]);
+
+
+    // --- SYNCHRONIZED HIGHLIGHTING (No Auto-Scroll Version) ---
+    // User Agency over generic automation.
+
+    const toggleHighlight = (id, isActive) => {
+        if (!id) return;
+        const targetCell = document.querySelector(`.cal-cell[data-day="${id}"]`);
+        const targetItem = document.getElementById(id);
+
+        // Toggle class only (No scrollIntoView)
+        if (targetCell) targetCell.classList.toggle('active-sync', isActive);
+        if (targetItem) targetItem.classList.toggle('active-sync', isActive);
+    };
+
+    // 1. Hover on Calendar
+    document.querySelectorAll('.cal-cell.has-event').forEach(cell => {
+        cell.addEventListener('mouseenter', () => toggleHighlight(cell.dataset.day, true));
+        cell.addEventListener('mouseleave', () => toggleHighlight(cell.dataset.day, false));
+    });
+
+    // 2. Hover on List
+    document.querySelectorAll('.c-item').forEach(item => {
+        item.addEventListener('mouseenter', () => toggleHighlight(item.id, true));
+        item.addEventListener('mouseleave', () => toggleHighlight(item.id, false));
+    });
+
 });
