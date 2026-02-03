@@ -20,6 +20,14 @@
             --yellow: #fdcb6e;
             --border: #dfe6e9;
             --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+
+            /* Level Colors */
+            --lv1: #00b894;
+            /* Green */
+            --lv2: #0984e3;
+            /* Blue */
+            --lv3: #6c5ce7;
+            /* Purple */
         }
 
         body {
@@ -34,6 +42,7 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
+            transition: filter 0.5s;
         }
 
         header {
@@ -67,6 +76,19 @@
             margin-bottom: 40px;
             border: 1px solid #fff;
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Level Indicators for Sections */
+        section::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #eee;
         }
 
         h2 {
@@ -94,7 +116,8 @@
             font-family: "Fira Code", monospace;
             color: #495057;
             overflow-x: auto;
-            border-left: 6px solid var(--accent);
+            border-left: 6px solid var(--lv2);
+            /* Code is Level 2 */
             margin-bottom: 25px;
             font-size: 0.95rem;
             border: 1px solid var(--border);
@@ -113,6 +136,7 @@
             color: #00b894;
         }
 
+        /* --- TOGGLE UI IMPROVED --- */
         details {
             margin-top: 20px;
             background: #fff;
@@ -120,11 +144,24 @@
             overflow: hidden;
             transition: 0.3s;
             border: 1px solid var(--border);
+            border-left: 4px solid transparent;
+        }
+
+        /* Level Specific Borders */
+        details.lv-concept {
+            border-left-color: var(--lv1);
+        }
+
+        details.lv-code {
+            border-left-color: var(--lv2);
+        }
+
+        details.lv-arch {
+            border-left-color: var(--lv3);
         }
 
         details[open] {
-            border-color: var(--accent);
-            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
         }
 
         summary {
@@ -138,6 +175,7 @@
             background: #fafafa;
             transition: 0.2s;
             color: var(--sub-text);
+            position: relative;
         }
 
         summary:hover {
@@ -149,8 +187,36 @@
             display: none;
         }
 
-        .concept-summary i {
+        /* Chevron */
+        summary::after {
+            content: '\f078';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 25px;
+            transition: 0.3s;
+            color: #ccc;
+        }
+
+        summary:hover::after {
             color: var(--accent);
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+
+        .concept-summary i {
+            color: var(--lv1);
+        }
+
+        .code-summary i {
+            color: var(--lv2);
+        }
+
+        .arch-summary i {
+            color: var(--lv3);
         }
 
         .details-content {
@@ -199,10 +265,243 @@
             transform: translateY(-3px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
+
+        /* --- DIAGNOSTIC MODAL --- */
+        #diag-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+
+        #diag-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .diag-card {
+            background: #fff;
+            width: 90%;
+            max-width: 550px;
+            padding: 40px 50px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transform: scale(0.95);
+            transition: 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+
+        #diag-modal.active .diag-card {
+            transform: scale(1);
+        }
+
+        .diag-title {
+            font-family: "Teko";
+            font-size: 3rem;
+            margin: 0;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .diag-q {
+            font-size: 1rem;
+            color: var(--sub-text);
+            margin: 10px 0 30px;
+        }
+
+        .diag-opts {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .diag-btn {
+            background: #fff;
+            color: var(--text);
+            border: 2px solid #f5f5f5;
+            border-left-width: 6px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.2s;
+            position: relative;
+        }
+
+        .diag-btn:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-color: #fff;
+        }
+
+        /* Level Specifics */
+        .diag-btn.lv1 {
+            border-left-color: var(--lv1);
+        }
+
+        .diag-btn.lv1:hover {
+            background: linear-gradient(to right, #e6fffa, #fff);
+        }
+
+        .diag-btn.lv1 i {
+            color: var(--lv1);
+        }
+
+        .diag-btn.lv2 {
+            border-left-color: var(--lv2);
+        }
+
+        .diag-btn.lv2:hover {
+            background: linear-gradient(to right, #e3f2fd, #fff);
+        }
+
+        .diag-btn.lv2 i {
+            color: var(--lv2);
+        }
+
+        .diag-btn.lv3 {
+            border-left-color: var(--lv3);
+        }
+
+        .diag-btn.lv3:hover {
+            background: linear-gradient(to right, #f3e5f5, #fff);
+        }
+
+        .diag-btn.lv3 i {
+            color: var(--lv3);
+        }
+
+        .lvl-badge {
+            font-size: 0.7rem;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: "Teko";
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+            display: inline-block;
+        }
+
+        .diag-btn.lv1 .lvl-badge {
+            background: var(--lv1);
+        }
+
+        .diag-btn.lv2 .lvl-badge {
+            background: var(--lv2);
+        }
+
+        .diag-btn.lv3 .lvl-badge {
+            background: var(--lv3);
+        }
+
+        .btn-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .btn-desc {
+            font-size: 0.75rem;
+            font-weight: normal;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2d3436;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10000;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        body.modal-open .container {
+            filter: blur(5px);
+            pointer-events: none;
+        }
     </style>
 </head>
 
-<body>
+<body class="modal-open">
+    <div id="diag-modal" class="active">
+        <div class="diag-card">
+            <!-- Part 1: Context (Everyone reads this first) -->
+            <div class="diag-hero">
+                <h2 class="diag-title">WELCOME TO BACKSTAGE</h2>
+                <div class="diag-intro">
+                    このサイトは、皆さんが普段使っている「DX公開カレンダー（Google Calendar）」と同じ感覚で使えるように設計されました。
+                    <div class="diag-vision">
+                        <i class="fa-solid fa-crosshairs"></i> 目標: カレンダーの「見やすさ」× 教材への「即アクセス」
+                    </div>
+                    「スケジュール確認」と「学習」を1つの画面で完結させることで、皆さんの学習ハードルを極限まで下げることを目指しています。
+                </div>
+            </div>
+
+            <!-- Part 2: Selection (Choose depth based on context) -->
+            <div class="diag-actions">
+                <p class="diag-q">
+                    このあとのページではこのトップページの仕様について共有していきます。<br>
+                    ・ざっくり役割やねらいを知りたい方は一番上を、<br>
+                    ・そのコードを具体的に知りたい人は真ん中を、<br>
+                    ・設計の意図や背景まで知りたい方は一番下をご覧くださいませ。
+                </p>
+                <div class="diag-opts">
+                    <button class="diag-btn lv1" onclick="setMode('lv1')">
+                        <i class="fa-solid fa-seedling"></i>
+                        <div class="btn-text">
+                            <span class="lvl-badge">LEVEL 1: Beginner</span>
+                            <span>デザインの「意味」を知る</span>
+                            <span class="btn-desc">なぜこの形なのか？をやさしく解説</span>
+                        </div>
+                    </button>
+                    <button class="diag-btn lv2" onclick="setMode('lv2')">
+                        <i class="fa-solid fa-code"></i>
+                        <div class="btn-text">
+                            <span class="lvl-badge">LEVEL 2: Engineer</span>
+                            <span>実装と「コード」を知る</span>
+                            <span class="btn-desc">FlexboxやJSの実装テクニック</span>
+                        </div>
+                    </button>
+                    <button class="diag-btn lv3" onclick="setMode('lv3')">
+                        <i class="fa-solid fa-chess-knight"></i>
+                        <div class="btn-text">
+                            <span class="lvl-badge">LEVEL 3: PM / Director</span>
+                            <span>戦略と「UX ROI」を知る</span>
+                            <span class="btn-desc">ビジネス価値と開発対効果の視点</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="toast">Mode Apply!</div>
+
     <div class="container">
         <header>
             <div class="subtitle">ENGINEERING LOG</div>
@@ -210,79 +509,216 @@
             <p style="color:#636e72; margin-top:10px;">UX設計と技術的意図の解説</p>
         </header>
 
+        <!-- SECTION 1: BADGE UI -->
         <section>
             <h2><i class="fa-solid fa-box"></i> 1. Cognitive Load Reduction</h2>
-            <p><strong>なぜ「日付」を強調表示（Badge UI）するのか</strong></p>
-            <p>ユーザーが学習カリキュラムを閲覧する際、最も重要なコンテキストは「いつ（When）」と「なにを（What）」です。
-                テキストだけでなく、日付を「視覚的なオブジェクト」として独立させることで、スキャナビリティ（流し読みのしやすさ）を向上させ、認知負荷を低減させています。</p>
 
             <div class="badge-viz">
-                <span style="font-weight:bold; color:#999;">Text Only (Linear):</span>
+                <span style="font-weight:bold; color:#999;">Text Only:</span>
                 <span style="font-weight:bold;">02/03</span>
                 <span style="margin:0 20px; color:#ccc;">VS</span>
-                <span style="font-weight:bold; color:#999;">Badge UI (Spatial):</span>
+                <span style="font-weight:bold; color:#999;">Badge UI:</span>
                 <div class="sample-badge"><span style="font-size:0.7rem;">FEB</span><span
                         style="font-size:1.5rem;">03</span></div>
             </div>
 
-            <div class="code-block"><span class="token sel">.date-box</span> {
-                <span class="token prop">display</span>: flex;
-                <span class="token prop">flex-direction</span>: column;
-                <span class="token prop">background</span>: #7986cb; <span class="token comment">/* Visual Anchor
-                    */</span>
-                }
-            </div>
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    パッと見てわかる工夫</summary>
+                <div class="details-content">
+                    <p><strong>「文字」は読まないといけないけれど、「図形」は見るだけでわかります。</strong></p>
+                    <p>たくさんのリストが並んでいると、ズラリと並んだ文字に圧倒されてしまいます。<br>
+                        そこで、日付をカラフルな「四角い箱」に入れてあげることで、これを<strong>「読む文字」から「見るしるし」に変えました。</strong></p>
+                    <p>「あ、ここが日付だな」と直感的にわかるので、脳ミソに余計な負担をかけずに済みます。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Flexbox
+                    Layout</summary>
+                <div class="code-block"><span class="token sel">.date-box</span> {
+                    <span class="token prop">display</span>: flex;
+                    <span class="token prop">flex-direction</span>: column;
+                    <span class="token prop">align-items</span>: center;
+                    <span class="token prop">background</span>: #7986cb;
+                    <span class="token prop">border-radius</span>: 12px;
+                    }
+                </div>
+                <div class="details-content">
+                    <p>単純な `padding` ではなく、親要素に `display: flex` と `flex-direction: column` を指定し、
+                        月（FEB）と日付（03）を垂直・水平方向に完全中央配置（Centering）しています。</p>
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Scannability & ROI</summary>
+                <div class="details-content">
+                    <p><strong>スキャナビリティの向上による離脱防止</strong></p>
+                    <p>ユーザーが大量のリスト情報に直面した際、求める情報（日付）が即座に見つからないと「探すコスト」が増大し、ストレス（Cognitive Load）となります。</p>
+                    <p>Badge UIの実装工数は微々たるものですが、リスト全体の視認性を劇的に向上させ、ユーザーが「必要な講義を見つけやすくする」という体験価値に直結します。<br>
+                        <strong>「小さな装飾に見えるが、実はナビゲーション機能の一部」</strong>として機能させています。
+                    </p>
+                </div>
+            </details>
         </section>
 
+        <!-- SECTION 2: COLOR HARMONY -->
         <section>
-            <h2><i class="fa-solid fa-layer-group"></i> 2. Visual Hierarchy & Unity</h2>
-            <p><strong>色彩設計による統一感</strong></p>
-            <p>アクションボタンには、ヘッダーやバッジと同一の色相（Hue）を持つグラデーションを採用しました。
-                彩度（Saturation）を統一することで、重要なアクション要素を目立たせつつも、UI全体としてのノイズを排除し、プロフェッショナルな印象を与えます。</p>
-            <div class="code-block"><span class="token sel">.shortcut-btn</span> {
-                <span class="token prop">background</span>: <span class="token func">linear-gradient</span>(135deg,
-                #5c6bc0, #3949ab);
-                <span class="token comment">/* Consistent Brand Colors */</span>
-                }
-            </div>
+            <h2><i class="fa-solid fa-layer-group"></i> 2. Visual Hierarchy</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    色のルールを決める</summary>
+                <div class="details-content">
+                    <p><strong>「紫色は、押せる合図」</strong></p>
+                    <p>信号機が「青なら進め」であるように、このサイトでも「紫色のグラデーションなら押せるボタン」というルールを徹底しています。</p>
+                    <p>あちこちにいろんな色を使うのではなく、大事な場所だけ色をそろえることで、
+                        初めて使う人でも「次はここを押せばいいんだな」と迷わず操作できるようになります。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: CSS
+                    Variables & Gradient</summary>
+                <div class="code-block"><span class="token sel">:root</span> {
+                    <span class="token prop">--accent</span>: #5c6bc0;
+                    }
+                    <span class="token sel">.shortcut-btn</span> {
+                    <span class="token prop">background</span>: <span class="token func">linear-gradient</span>(135deg,
+                    #5c6bc0, #3949ab);
+                    }
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Brand Consistency</summary>
+                <div class="details-content">
+                    <p><strong>一貫性が生む信頼性（Trust）</strong></p>
+                    <p>色彩設計において最も避けるべきは「意味のない色の多用」です。
+                        コンバージョン（クリック）を狙う箇所において、HUE（色相）を統一しつつ、Gradient（グラデーション）でリッチさを演出することは、
+                        <strong>「洗練されたツールである」という信頼感</strong>をユーザーに与えます。
+                    </p>
+                    <p>安っぽいツールだと思われて使われないリスクを、UIの質で低減させています。</p>
+                </div>
+            </details>
         </section>
 
+        <!-- SECTION 3: CALENDAR (UPDATED) -->
         <section>
             <h2><i class="fa-solid fa-calendar-days"></i> 3. Dual-View Synchronization</h2>
-            <p><strong>カレンダー機能の目的（Purpose）</strong></p>
-            <p>リスト表示（Linear View）は詳細情報の確認に適していますが、<strong>「スケジュールの全体感（Temporal Context）」</strong>の把握には不向きです。
-                カレンダー（Grid View）を並列させることで、ユーザーは「週のどこが忙しいか」「次の休講日はいつか」を直感的に把握できます。</p>
 
-            <p><strong>技術的実装（Technical Implementation）</strong></p>
-            <p>カレンダーとリストを双方向にリンクさせる際、パフォーマンスとUXを最優先しました。</p>
-            <ul>
-                <li><strong>Mapping:</strong> DOM要素に `data-day` 属性と `id` を付与し、O(1)の計算量で対応関係を特定します。</li>
-                <li><strong>No Auto-Scroll:</strong> スクロール位置の強制変更は「User Agency（制御権）」を奪う行為であるため排除し、
-                    純粋な視覚フィードバック（ハイライト）のみを提供しています。</li>
-            </ul>
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    いつものカレンダー機能</summary>
+                <div class="details-content">
+                    <p><strong>「あのGoogleカレンダーと同じ見た目にしておきました！」</strong></p>
+                    <p>皆さんが普段、研修スケジュールを確認している「DX公開カレンダー」がありますよね？
+                        このサイトのカレンダーは、あえてそれとそっくりな形に作ってあります。</p>
+                    <p>「今日は祝日だから休みだな」とか「月末は4日間連続だな」といった、見慣れた感覚のまま使えるので、
+                        新しいツールの使い方を覚える必要がありません。しかも、このサイトならそのまま教材も開けるので一石二鳥です！</p>
+                </div>
+            </details>
 
-            <div class="code-block"><span class="token sel">const</span> toggleHighlight = (id, isActive) => {
-                <span class="token comment">// Pure state toggle, no scroll side-effects</span>
-                const cell = document.querySelector(`.cal-cell[data-day="${id}"]`);
-                cell.classList.<span class="token func">toggle</span>(<span class="token val">'active-sync'</span>,
-                isActive);
-                };
-            </div>
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: O(1) Mapping
+                    Logic</summary>
+                <div class="code-block"><span class="token sel">const</span> toggleHighlight = (id) => {
+                    <span class="token comment">// ID selector is O(1) - Fast!</span>
+                    const cell = document.getElementById(id);
+                    cell.classList.toggle(<span class="token val">'active'</span>);
+                    };
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Mental Model & One-Stop</summary>
+                <div class="details-content">
+                    <p><strong>メンタルモデルの流用とスイッチングコストの削減</strong></p>
+                    <p>ユーザーは既に「Googleカレンダー（DX公開カレンダー）」で研修日程を把握する習慣（メンタルモデル）を持っています。<br>
+                        全く新しいUIを押し付けるのではなく、<strong>「既存の習慣（カレンダーのグリッド感）を模倣しつつ、機能を拡張（教材へのリンク等の埋め込み）」</strong>することで、
+                        学習コストをゼロに近づけています。</p>
+                    <p><strong>All-in-One Value:</strong><br>
+                        「予定確認はGoogleカレンダー、学習はポータル」とツールを行き来する（Context Switch）のは無駄なコストです。
+                        このポータル一つで「予定確認」と「学習開始」を完結させることで、日々の学習開始のハードルを極限まで下げています。</p>
+                </div>
+            </details>
         </section>
 
         <section>
-            <h2><i class="fa-solid fa-hand-pointer"></i> 4. Accessibility & Navigation</h2>
-            <p><strong>絶対配置（Absolute Positioning）によるナビゲーション</strong></p>
-            <p>「Design Notes」へのリンクは、コンテンツカード内での `position: absolute` を採用しました。</p>
-            <p>これは、画面上の固定位置（Fixed）が抱える「メインコンテンツへの被り」リスクを回避しつつ、
-                カードというコンテナ内での一貫したアクセス性を担保するためです。
-                インタラクションコストを下げ、開発者向け情報への導線を常に確保しています。</p>
+            <h2><i class="fa-solid fa-hand-pointer"></i> 4. Accessibility</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    邪魔しないボタン</summary>
+                <div class="details-content">
+                    <p>「Design Notes」のボタンは、文字の上に被らないように、そっとカードの右下に配置し直しました。<br>
+                        いつでも押せるけど、決して邪魔はしない。そんな気配りの配置です。</p>
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Fitts's Law</summary>
+                <div class="details-content">
+                    <p><strong>Absolute配置によるコンテナ拘束</strong></p>
+                    <p>画面全体へのFixed配置は、多様なデバイスサイズにおいてコンテンツ干渉のリスクが高い実装です。<br>
+                        「カードコンテナ内でのAbsolute配置」に変更することで、レスポンシブ崩れを論理的に防ぎつつ、
+                        ユーザーの視線移動（F-Patternの終点）に合わせた自然な導線設計としています。</p>
+                </div>
+            </details>
         </section>
 
         <div style="text-align:center;">
             <a href="index.html" class="back-btn">← Portal UI</a>
         </div>
     </div>
+
+    <script>
+        function setMode(mode) {
+            const modal = document.getElementById('diag-modal');
+            const toast = document.getElementById('toast');
+
+            modal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+
+            // Reset: Close all
+            document.querySelectorAll('details').forEach(d => d.open = false);
+
+            // Default: Show all sections (hidden via CSS usually, but lets use JS specific logic)
+            // Logic:
+            // lv1 -> Show Concept
+            // lv2 -> Show Code (and Concept?) -> Let's show specific only to reduce noise as per request for distinction
+            // lv3 -> Show Strategy
+
+            if (mode === 'lv1') {
+                document.querySelectorAll('.lv-concept').forEach(d => d.open = true);
+                toast.textContent = "🌱 Mode: LV.1 Beginner";
+            } else if (mode === 'lv2') {
+                document.querySelectorAll('.lv-code').forEach(d => d.open = true);
+                toast.textContent = "💻 Mode: LV.2 Engineer";
+            } else if (mode === 'lv3') {
+                document.querySelectorAll('.lv-arch').forEach(d => d.open = true);
+                toast.textContent = "♟️ Mode: LV.3 PM/Director";
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+    </script>
 </body>
 
 </html>

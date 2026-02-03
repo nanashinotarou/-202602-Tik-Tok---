@@ -344,65 +344,68 @@
 
         p {
             margin: 2px 0 0;
-            font-size: 0.85rem;
-            color: #888;
-        }
 
-        /* FIX: Dev Link Position */
-        .dev-link {
-            position: absolute;
-            /* Changed (back) to absolute so it stays in the card */
-            bottom: 20px;
-            right: 20px;
-            background: #fff;
-            padding: 10px 20px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: #5c6bc0;
-            transition: 0.2s;
-            border: 1px solid #e8eaf6;
-            z-index: 100;
-        }
-
-        .dev-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            color: #3949ab;
-        }
-
-        @media (max-width: 900px) {
-            body {
-                height: auto;
-                padding: 20px;
-                overflow: auto;
-                display: block;
-            }
-
-            .modal-container {
-                width: 100%;
-                height: auto;
+            /* FIX: Dev Link Position */
+            .dev-link {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+                background: #fff;
+                padding: 12px 24px;
+                /* Larger padding */
+                border-radius: 50px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+                /* Stronger shadow */
+                font-size: 0.85rem;
+                font-weight: bold;
+                text-decoration: none;
+                color: #5c6bc0;
+                transition: 0.2s;
+                border: 2px solid #e8eaf6;
+                /* Thicker border */
+                z-index: 100;
                 display: flex;
-                flex-direction: column;
+                align-items: center;
+                gap: 8px;
             }
 
-            .calendar-area {
-                height: 500px;
-                border-right: none;
-                border-bottom: 1px solid #eee;
+            .dev-link:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(92, 107, 192, 0.25);
+                color: #3949ab;
+                border-color: #c5cae9;
             }
 
-            .calendar-grid {
-                padding: 10px;
-                grid-template-rows: 40px repeat(5, 1fr);
-            }
+            @media (max-width: 900px) {
+                body {
+                    height: auto;
+                    padding: 20px;
+                    overflow: auto;
+                    display: block;
+                }
 
-            .list-area {
-                height: auto;
+                .modal-container {
+                    width: 100%;
+                    height: auto;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .calendar-area {
+                    height: 500px;
+                    border-right: none;
+                    border-bottom: 1px solid #eee;
+                }
+
+                .calendar-grid {
+                    padding: 10px;
+                    grid-template-rows: 40px repeat(5, 1fr);
+                }
+
+                .list-area {
+                    height: auto;
+                }
             }
-        }
     </style>
 </head>
 
@@ -604,8 +607,9 @@
                     </div>
                 </div>
             </div>
-            <a href="index_dev_notes.html" class="dev-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Design
-                Notes</a>
+            <a href="index_dev_notes.html" class="dev-link">
+                <i class="fa-solid fa-lightbulb" style="color:#fdcb6e;"></i> 制作の裏側・デザインの意図
+            </a>
         </div>
     </div>
     <script src="main.js"></script>
