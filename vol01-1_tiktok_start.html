@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vol.1: AI x TikTok Revolution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f0f4f8;
+            --bg-card: #ffffff;
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --accent-cyan: #00bcd4;
+            --accent-pink: #e91e63;
+            --gemini-blue: #4285f4;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 2.0;
+            margin: 0;
+            padding: 40px 20px;
+            background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            color: #fff;
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+        }
+
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: "Teko", sans-serif;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: clamp(4rem, 10vw, 6rem);
+            margin: 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #b2bec3;
+        }
+
+        /* --- CONTENT BODY --- */
+        .content {
+            padding: 60px 40px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin: 80px 0 40px;
+            font-family: "Teko", sans-serif;
+            color: #000;
+            border-bottom: 3px solid #eee;
+            padding-bottom: 10px;
+            line-height: 1;
+        }
+
+        h2 span {
+            color: var(--accent-cyan);
+            margin-right: 15px;
+            font-size: 3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 2em;
+            text-align: justify;
+            color: #455a64;
+        }
+
+        strong {
+            background: linear-gradient(transparent 60%, #fff9c4 60%);
+            padding: 0 4px;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        /* --- SPECIAL BOXES --- */
+        .box {
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        /* Gemini Box */
+        .box.gemini {
+            background: #e3f2fd;
+            border: 2px solid #bbdefb;
+        }
+
+        .box.gemini::before {
+            content: "\f544";
+            font-family: "Font Awesome 6 Free";
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: var(--gemini-blue);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* TikTok Box */
+        .box.tiktok {
+            background: #212121;
+            color: #fff;
+            border: 2px solid #000;
+        }
+
+        .box.tiktok p {
+            color: #cfd8dc;
+        }
+
+        .box.tiktok strong {
+            background: var(--accent-pink);
+            color: #fff;
+        }
+
+        .box.tiktok::before {
+            content: "\e07b";
+            font-family: "Font Awesome 6 Brands";
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: #000;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Danger/Warning Box */
+        .box.danger {
+            background: #ffebee;
+            border-left: 6px solid #ff5252;
+            padding: 20px 30px;
+        }
+
+        .box.danger h4 {
+            color: #d32f2f;
+            margin: 0 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Code/Prompt Box */
+        .code-box {
+            background: #2d3436;
+            color: #81ecec;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: monospace;
+            position: relative;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent-cyan);
+            font-size: 0.95rem;
+        }
+
+        .code-label {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--accent-cyan);
+            color: #000;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        /* Video List (Compact) */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .v-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #2d3436;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            border: 1px solid #dfe6e9;
+        }
+
+        .v-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Quiz */
+        .quiz-area {
+            margin-top: 80px;
+            padding: 40px;
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-header h2 {
+            border: none;
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="hero">
+            <span class="tag-pill">Vol.1 Day 1</span>
+            <h1>The Awakening</h1>
+            <div class="hero-sub">AIという「翼」を手に入れ、TikTokという「空」へ飛び立つ</div>
+        </div>
+
+        <div class="content">
+
+            <p style="font-size:1.2rem; font-weight:bold; color:#000; line-height:1.6;">
+                「動画編集なんてやったことがない」「企画なんて思いつかない」<br>
+                そう思っていませんか？<br>
+                安心してください。2026年の今、あなたには最強の相棒<strong>「Gemini」</strong>がいます。<br>
+                今日は、AIを使いこなし、最短ルートでクリエイターになるための「環境構築」を行います。
+            </p>
+
+            <div class="video-list">
+                <a href="https://youtu.be/WJ1R3D0ntf8" target="_blank" class="v-item"><i
+                        class="fa-brands fa-google"></i> Gemini基礎操作</a>
+                <a href="https://youtu.be/KUNBWh9rprI" target="_blank" class="v-item"><i
+                        class="fa-solid fa-pen-nib"></i> 文章生成のコツ</a>
+                <a href="https://youtu.be/YYx0zrIYS2o" target="_blank" class="v-item"><i class="fa-solid fa-image"></i>
+                    画像生成実践</a>
+                <a href="https://youtu.be/ji1f9kRmIRg" target="_blank" class="v-item"><i
+                        class="fa-brands fa-tiktok"></i> TikTok入門</a>
+                <a href="https://youtu.be/5p4WWu4njOk" target="_blank" class="v-item"><i class="fa-solid fa-gear"></i>
+                    初期設定ガイド</a>
+            </div>
+
+            <h2><span>01</span> THE CO-PILOT: GEMINI</h2>
+            <p>
+                Googleの生成AI「Gemini」は、単なる検索エンジンではありません。テキスト、画像、音声、動画を同時に理解する<strong>「マルチモーダルAI」</strong>です。<br>
+                TikTokマーケティングにおいて、Geminiは以下の役割を果たします。
+            </p>
+
+            <div class="box gemini">
+                <h4 style="margin-top:0;">Geminiにできること（TikTok編）</h4>
+                <ul style="padding-left:20px; margin-bottom:0;">
+                    <li><strong>企画の壁打ち:</strong> 「○○業界でバズりそうな企画を10個出して」</li>
+                    <li><strong>台本作成:</strong> 「この企画を1分の動画台本にして。冒頭2秒で惹きつけて」</li>
+                    <li><strong>サムネイル作成:</strong> 「動画の内容を表す魅力的な画像を生成して」</li>
+                    <li><strong>トレンド分析:</strong> 「今TikTokで流行っている音源やミームを教えて」</li>
+                </ul>
+            </div>
+
+            <h3>プロンプト・エンジニアリングの基本</h3>
+            <p>
+                AIから良い回答を引き出すには、指示（プロンプト）の出し方にコツがあります。<br>
+                <strong>「役割・命令・制約・出力形式」</strong>の4要素を含めるのが鉄則です。
+            </p>
+
+            <div class="code-box">
+                <span class="code-label">最強のプロンプト構文（コピペOK）</span>
+                # 役割<br>
+                あなたはプロのTikTokマーケターです。<br><br>
+                # 命令<br>
+                「在宅ワークの便利グッズ」を紹介する動画の台本を作成してください。<br><br>
+                # 制約条件<br>
+                - 動画の長さは30秒以内<br>
+                - 冒頭の「つかみ」で意外な事実を言う<br>
+                - 小学生でもわかる言葉を使う<br><br>
+                # 出力形式<br>
+                表形式（秒数 | 映像の内容 | ナレーション）
+            </div>
+
+            <h2><span>02</span> THE OCEAN: TIKTOK</h2>
+            <p>
+                TikTokは「SNS」ではなく<strong>「コンテンツ配信プラットフォーム」</strong>です。<br>
+                InstagramやXが「フォローした人の投稿を見る」場所であるのに対し、TikTokは<strong>「AIが選んだおすすめ動画を見る」</strong>場所です。<br>
+                つまり、<strong>フォロワー0人の新人でも、内容さえ良ければいきなり100万回再生されるチャンスがある</strong>のです。
+            </p>
+
+            <div class="box tiktok">
+                <h4 style="margin-top:0; color:var(--accent-cyan);">🚀 アルゴリズムの真実</h4>
+                <p>
+                    TikTokの評価は<strong>「加算式」</strong>です。<br>
+                    投稿された動画は、まず少数のユーザー（200〜300人）にテスト配信されます。<br>
+                    そこで<strong>「フル視聴（最後まで見られたか）」</strong>や「いいね」などの反応が良いと、次のステージ（1000人規模）へ拡散されます。<br>
+                    このテストを勝ち抜き続けた動画だけが「バズる」のです。
+                </p>
+            </div>
+
+            <h3>初期設定の「落とし穴」</h3>
+            <p>
+                アカウント開設直後の設定ミスは、その後の伸びを大きく阻害します。特に以下の2点には注意してください。
+            </p>
+
+            <div class="box danger">
+                <h4><i class="fa-solid fa-triangle-exclamation"></i> ここだけは間違えるな！</h4>
+                <ul>
+                    <li>
+                        <strong>ユーザー名の変更制限:</strong><br>
+                        「@」から始まるユーザーIDは、一度変えると<strong>30日間変更できません</strong>。適当な文字列にせず、覚えやすい英数字にしましょう。
+                    </li>
+                    <li>
+                        <strong>ビジネスアカウントへの切り替え:</strong><br>
+                        初期段階では「個人用アカウント」のままでOKです。ビジネスアカウントにすると、商用利用できない流行曲（著作権あり）が使えなくなるデメリットがあります。
+                    </li>
+                </ul>
+            </div>
+
+            <div class="step-box"
+                style="background:#fff; border:2px dashed #000; padding:20px; border-radius:12px; margin-top:40px;">
+                <h3 style="margin-top:0; border:none; padding:0; justify-content:center; text-align:center;">🏆 今日のミッション
+                </h3>
+                <ol style="font-weight:bold; color:#2d3436;">
+                    <li>Geminiにログインし、「TikTokの企画案」を3つ出してもらう。</li>
+                    <li>スマホにTikTokアプリを入れ、アカウントを作成する。</li>
+                    <li>「探索」タブで、自分のジャンルに近い動画を5本見る。</li>
+                </ol>
+            </div>
+
+            <div style="text-align:center; margin:50px 0;">
+                <a href="vol01-1_dev_challenge.html"
+                    style="display:inline-flex; align-items:center; gap:15px; background:#2d3436; color:#fff; text-decoration:none; padding:15px 35px; border-radius:40px; font-weight:bold; transition:all 0.3s; border:2px solid #2d3436; box-shadow:0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fa-solid fa-code" style="color:#00bcd4;"></i>
+                    <span>BEHIND THE CODE: このページの技術解説を見る</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <p style="font-size:0.8rem; color:#999; margin-top:10px; font-weight:bold;">
+                    ※エンジニア視点で「実装の裏側」を学ぶ上級者向けコンテンツ</p>
+            </div>
+
+            <div class="quiz-area">
+                <div class="quiz-header">
+                    <h2>KNOWLEDGE <span>CHECK</span></h2>
+                    <p style="color:#636e72;">Vol.1 理解度テスト / 全5問</p>
+                </div>
+                <div id="quiz-vol01-1">
+                    <div style="text-align:center;">Loading Quiz System...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="text-align:center; padding-top:40px; color:#b2bec3; font-size:0.8rem;">
+        © 2026 DX Training Program / Feb Course
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Challenge: Vol.1 Deep Dive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f8fb;
+            --card: #ffffff;
+            --text: #2d3436;
+            --sub-text: #636e72;
+            --accent: #00bcd4;
+            --pink: #ff7675;
+            --yellow: #fdcb6e;
+            --border: #dfe6e9;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            transition: filter 0.5s;
+        }
+
+        body.modal-open .container {
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: 4rem;
+            margin: 0;
+            color: var(--text);
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        /* Section Card */
+        section {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid #fff;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            font-family: "Teko", sans-serif;
+            font-size: 2.2rem;
+            margin: 0 0 20px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px dashed var(--border);
+            padding-bottom: 15px;
+        }
+
+        h2 i {
+            color: var(--accent);
+            background: #e0f7fa;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+
+        /* Code Block (Light Theme) */
+        .code-block {
+            background: #f1f3f5;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: "Fira Code", monospace;
+            color: #495057;
+            overflow-x: auto;
+            border-left: 6px solid var(--accent);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+        }
+
+        .token.sel {
+            color: #e056fd;
+            font-weight: bold;
+        }
+
+        .token.prop {
+            color: #0984e3;
+        }
+
+        .token.val {
+            color: #00b894;
+        }
+
+        .token.func {
+            color: #d63031;
+        }
+
+        .token.comment {
+            color: #b2bec3;
+            font-style: italic;
+        }
+
+        /* Accordion */
+        details {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        details[open] {
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.1);
+        }
+
+        summary {
+            padding: 18px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fafafa;
+            transition: 0.2s;
+            color: var(--sub-text);
+        }
+
+        summary:hover {
+            background: #f0f0f0;
+            color: var(--text);
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .concept-summary i {
+            color: var(--yellow);
+            font-size: 1.2rem;
+        }
+
+        .newbie-summary i {
+            color: var(--pink);
+            font-size: 1.2rem;
+        }
+
+        .details-content {
+            padding: 30px;
+            background: #fff;
+            border-top: 1px solid var(--border);
+            font-size: 1rem;
+        }
+
+        /* Visuals */
+        .diagram {
+            background: #f8f9fa;
+            color: #333;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            border: 2px dashed var(--border);
+        }
+
+        .grid-viz {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .grid-box {
+            flex: 1;
+            background: #fff;
+            border: 2px solid var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--accent);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .metaphor {
+            background: #fff0f0;
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 15px;
+            border: 2px solid #ffcccc;
+            color: #636e72;
+        }
+
+        .metaphor strong {
+            color: var(--pink);
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* --- DIAGNOSTIC MODAL (Light Version) --- */
+        #diag-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        #diag-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .diag-card {
+            background: #fff;
+            width: 90%;
+            max-width: 550px;
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid #fff;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #diag-modal.active .diag-card {
+            transform: scale(1);
+        }
+
+        .diag-title {
+            font-family: "Teko", sans-serif;
+            font-size: 3rem;
+            color: var(--text);
+            margin: 0 0 10px;
+            line-height: 1;
+        }
+
+        .diag-q {
+            font-size: 1.2rem;
+            color: var(--sub-text);
+            margin-bottom: 40px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .diag-opts {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .diag-btn {
+            background: #fff;
+            color: var(--text);
+            border: 2px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 0 var(--border);
+        }
+
+        .diag-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 rgba(0, 188, 212, 0.2);
+        }
+
+        .diag-btn i {
+            width: 30px;
+            text-align: center;
+            color: var(--sub-text);
+            font-size: 1.4rem;
+            transition: 0.2s;
+        }
+
+        .diag-btn:hover i {
+            color: var(--accent);
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2d3436;
+            color: #fff;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            z-index: 10000;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: var(--text);
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 40px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="diag-modal" class="active">
+        <div class="diag-card">
+            <h2 class="diag-title">SKILL CHECK</h2>
+            <p class="diag-q">Q. このページの「動画リスト」は、スマホで見ると1列、PCだと2列になります。<br>どうやって動いていると思いますか？</p>
+            <div class="diag-opts">
+                <button class="diag-btn" onclick="setMode('newbie')">
+                    <i class="fa-solid fa-face-sad-tear"></i> <span>全く見当がつかない（魔法？）</span>
+                </button>
+                <button class="diag-btn" onclick="setMode('mid')">
+                    <i class="fa-solid fa-mobile-screen"></i> <span>「スマホの時はこうする」って命令してる？</span>
+                </button>
+                <button class="diag-btn" onclick="setMode('pro')">
+                    <i class="fa-solid fa-code"></i> <span>CSS Grid の auto-fit でしょ</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Mode Set!</div>
+
+    <div class="container">
+        <header>
+            <div class="subtitle">BEHIND THE SCENE</div>
+            <h1>CODE ANATOMY</h1>
+            <p style="color:#636e72; margin-top:10px;">Vol.1 教材ページの実装解説</p>
+        </header>
+
+        <section>
+            <h2><i class="fa-solid fa-border-all"></i> 1. Responsive Grid</h2>
+            <p>動画一覧は、画面の広さに合わせて自動で並び方が変わります。これを「たった1行の命令」で実現しています。</p>
+
+            <div class="code-block">
+                <span class="token sel">.video-list</span> {
+                <span class="token prop">display</span>: grid;
+                <span class="token prop">grid-template-columns</span>: <span class="token func">repeat</span>(<span
+                    class="token val">auto-fit</span>, <span class="token func">minmax</span>(<span
+                    class="token val">250px</span>, <span class="token val">1fr</span>));
+                }
+            </div>
+
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> 仕組みを図解で見る（中級編）</summary>
+                <div class="details-content">
+                    <p>「最低でも250pxは欲しい。それ以上広がるなら、均等に分け合ってね(1fr)」という命令を、入るだけ繰り返す(repeat/auto-fit)という仕組みです。</p>
+                    <div class="diagram">
+                        <p style="font-size:0.8rem; margin-bottom:10px; color:#636e72;">▼ 画面が広いとき（3つ入る）</p>
+                        <div class="grid-viz">
+                            <div class="grid-box">250px</div>
+                            <div class="grid-box">250px</div>
+                            <div class="grid-box">250px</div>
+                        </div>
+                        <p style="font-size:0.8rem; margin:20px 0 10px; color:#636e72;">▼ 画面が狭いとき（折り返して1つになる）</p>
+                        <div class="grid-viz" style="width:50%; margin:0 auto;">
+                            <div class="grid-box">100%</div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="lv3">
+                <summary class="newbie-summary"><i class="fa-solid fa-baby"></i> そもそも「Grid」って何？（超入門）</summary>
+                <div class="details-content">
+                    <div class="metaphor">
+                        <strong>🧦 魔法の整理タンス</strong>
+                        <p>Webページ作りは「お片付け」に似ています。動画や文字といった「アイテム」を、画面という「部屋」に並べていきます。</p>
+                        <p>普通に置くと散らかりますが、<strong>「Grid（グリッド）」</strong>という命令を使うと、部屋に<strong>「魔法の仕切り（タンス）」</strong>が現れます。
+                        </p>
+                        <p>今回のコードは、タンスに向かって<strong>「アイテムの大きさに合わせて、仕切りの数を勝手に変えておいて！」</strong>と命令している状態です。だから、スマホでもPCでも、いつも綺麗に整頓されているのです。
+                        </p>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-wand-magic-sparkles"></i> 2. Pseudo-elements</h2>
+            <p>リストの「チェックマーク（✔）」などは、本文（HTML）には書かれておらず、デザイン担当（CSS）が後から付け足しています。</p>
+
+            <div class="code-block">
+                <span class="token sel">li</span><span class="token sel">::before</span> { <span
+                    class="token comment">/* ← リストの「前」に */</span>
+                <span class="token prop">content</span>: "\f00c"; <span class="token comment">/* ← チェックマークを置く */</span>
+                }
+            </div>
+
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> なぜわざわざ分けるの？（中級編）</summary>
+                <div class="details-content">
+                    <p>「構造（本文）」と「装飾（飾り）」を分けるためです。アイコンを「★」に変えたい時、本文を100箇所書き直すのは大変ですが、CSSなら1行変えるだけで済みます。</p>
+                </div>
+            </details>
+
+            <details class="lv3">
+                <summary class="newbie-summary"><i class="fa-solid fa-baby"></i> 疑似要素って何？（超入門）</summary>
+                <div class="details-content">
+                    <div class="metaphor">
+                        <strong>🏷️ 透明な付箋（ふせん）</strong>
+                        <p>あなたは大事な書類（HTML）に、直接ペンで「チェックマーク」を書き込みたくありません。書類が汚れるからです。</p>
+                        <p>そこで、<strong>「透明な付箋」</strong>にチェックマークを書いて、書類の上にペタッと貼ることにしました。これが<strong>「疑似要素（ぎじようそ）」</strong>です。
+                        </p>
+                        <p><code>::before</code> は「書類の先頭」に、<code>::after</code> は「書類の末尾」に付箋を貼る、という便利なテクニックです。</p>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-text-height"></i> 3. Fluid Typography</h2>
+            <p>タイトルの文字サイズは、スマホからPCまで、画面の幅に合わせてなめらかに大きさが変わります。</p>
+
+            <div class="code-block">
+                <span class="token sel">h1</span> {
+                <span class="token prop">font-size</span>: <span class="token func">clamp</span>(<span
+                    class="token val">4rem</span>, <span class="token val">10vw</span>, <span
+                    class="token val">6rem</span>);
+                }
+            </div>
+
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> clamp() の仕組み（中級編）</summary>
+                <div class="details-content">
+                    <p><code>clamp(最小, 推奨, 最大)</code>
+                        という書き方です。「基本は画面幅の10%(10vw)で。でも小さすぎず(4rem)、大きすぎず(6rem)にしてね」という、ブレーキ付きのサイズ指定です。</p>
+                </div>
+            </details>
+
+            <details class="lv3">
+                <summary class="newbie-summary"><i class="fa-solid fa-baby"></i> vw? rem? 単位が謎！（超入門）</summary>
+                <div class="details-content">
+                    <div class="metaphor">
+                        <strong>👕 伸び縮みする服</strong>
+                        <p>Webの世界には、長さの単位がいくつかあります。</p>
+                        <ul>
+                            <li><strong>px (ピクセル):</strong> 「1cm」のような決まった長さ。画面が大きくても小さくても変わりません。</li>
+                            <li><strong>vw (ビューポートの幅):</strong>
+                                「画面の幅の〇％」という、<strong>伸び縮みする単位</strong>です。画面が大きいと、文字もつられてデカくなります。</li>
+                        </ul>
+                        <p>今回のコードは、<strong>「体の大きさに合わせて伸び縮みするけど、Sサイズより小さくならないでね、Lサイズより大きくならないでね」</strong>という、特注の服をオーダーしている状態です。
+                        </p>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <div style="text-align:center;">
+            <a href="vol01-1_tiktok_start.html" class="back-btn">← 教材ページに戻る</a>
+        </div>
+    </div>
+
+    <script>
+        document.body.classList.add('modal-open');
+
+        function setMode(mode) {
+            const modal = document.getElementById('diag-modal');
+            const toast = document.getElementById('toast');
+            let msg = "";
+
+            modal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+
+            if (mode === 'newbie') {
+                document.querySelectorAll('details').forEach(d => d.open = true);
+                msg = "🔰 大丈夫！魔法のタネ明かしをします！";
+            } else if (mode === 'mid') {
+                document.querySelectorAll('.lv2').forEach(d => d.open = true);
+                document.querySelectorAll('.lv3').forEach(d => d.open = false);
+                msg = "🔧 なるほど！図解で仕組みを確認しましょう。";
+            } else {
+                document.querySelectorAll('details').forEach(d => d.open = false);
+                msg = "🚀 正解。コードが全てを語っています。";
+            }
+
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+    </script>
+</body>
+
+</html>
