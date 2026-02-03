@@ -306,18 +306,56 @@
             transform: scale(1);
         }
 
+        /* HERO SECTION IN MODAL */
+        .diag-hero {
+            background: #f8f9fa;
+            padding: 40px 40px 30px;
+            border-bottom: 2px dashed #eee;
+            text-align: left;
+            /* Force Left Align */
+        }
+
+        .diag-intro {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-top: 15px;
+            text-align: left;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .diag-vision {
+            background: #e8eaf6;
+            color: #303f9f;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* ACTIONS SECTION IN MODAL */
+        .diag-actions {
+            padding: 30px 40px 40px;
+        }
+
         .diag-title {
             font-family: "Teko";
             font-size: 3rem;
             margin: 0;
             line-height: 1;
             color: var(--text);
+            text-align: left;
+            /* Explicit Left Align */
         }
 
         .diag-q {
             font-size: 1rem;
             color: var(--sub-text);
             margin: 10px 0 30px;
+            text-align: left;
+            /* Align text to left */
         }
 
         .diag-opts {
@@ -467,9 +505,9 @@
             <div class="diag-actions">
                 <p class="diag-q">
                     このあとのページではこのトップページの仕様について共有していきます。<br>
-                    ・ざっくり役割やねらいを知りたい方は一番上を、<br>
-                    ・そのコードを具体的に知りたい人は真ん中を、<br>
-                    ・設計の意図や背景まで知りたい方は一番下をご覧くださいませ。
+                    ・<strong></strong>ざっくり役割やねらい</strong>を知りたい方は一番上を、<br>
+                    ・その<strong>コードを具体的に</strong>知りたい人は真ん中を、<br>
+                    ・<strong>設計の意図や背景</strong>まで知りたい方は一番下をご覧くださいませ。
                 </p>
                 <div class="diag-opts">
                     <button class="diag-btn lv1" onclick="setMode('lv1')">
