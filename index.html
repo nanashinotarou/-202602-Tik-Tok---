@@ -12,13 +12,10 @@
     <style>
         :root {
             --bg-body: #e3e8ee;
-            /* Dimmed background */
             --bg-card: #ffffff;
             --text-main: #333;
             --text-sub: #888;
             --accent-purple: #7986cb;
-            /* Date Box Color */
-            --accent-blue: #64b5f6;
             --shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
 
@@ -33,7 +30,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            /* モーダル感を出すためボディスクロール抑制 */
         }
 
         /* THE MODAL CONTAINER */
@@ -73,7 +69,7 @@
             position: relative;
         }
 
-        /* HEADER in Right Column */
+        /* HEADER */
         .brand-header {
             margin-bottom: 30px;
             border-bottom: 4px solid #9fa8da;
@@ -104,31 +100,34 @@
             margin-top: 5px;
         }
 
-        /* SHORTCUT BUTTON */
+        /* SHORTCUT BUTTON (Fixed: Harmonized Indigo) */
         .shortcut-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             border-radius: 12px;
-            background: linear-gradient(90deg, #1e88e5, #42a5f5);
+            /* 修正：サイト全体のトーンに合わせたインディゴグラデーション */
+            background: linear-gradient(135deg, #5c6bc0 0%, #3949ab 100%);
             color: #fff;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.1rem;
             margin-bottom: 30px;
             transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+            box-shadow: 0 10px 25px rgba(92, 107, 192, 0.3);
+            letter-spacing: 0.5px;
         }
 
         .shortcut-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
+            box-shadow: 0 15px 30px rgba(92, 107, 192, 0.4);
+            background: linear-gradient(135deg, #7986cb 0%, #303f9f 100%);
         }
 
-        /* SCROLLABLE LIST */
+        /* LIST */
         .curriculum-list {
             overflow-y: auto;
             flex: 1;
@@ -144,7 +143,7 @@
             border-radius: 3px;
         }
 
-        /* LIST ITEM CARD */
+        /* ITEM CARD */
         .c-item {
             display: flex;
             gap: 20px;
@@ -162,7 +161,7 @@
             transform: translateX(5px);
         }
 
-        /* DATE BOX (Badge) */
+        /* DATE BOX */
         .date-box {
             background: #7986cb;
             color: #fff;
@@ -217,7 +216,7 @@
             color: #888;
         }
 
-        /* FOOTER LINK (Floating) */
+        /* FOOTER LINK */
         .dev-link {
             position: absolute;
             bottom: 20px;
@@ -237,6 +236,7 @@
         .dev-link:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            color: #3949ab;
         }
 
         @media (max-width: 900px) {
@@ -252,7 +252,6 @@
                 height: auto;
                 display: flex;
                 flex-direction: column;
-                grid-template-columns: none;
             }
 
             .calendar-area {
@@ -297,67 +296,87 @@
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">04</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">04</span></div>
                     <div class="c-content"><span class="day-tag">DAY 02</span>
                         <h4>アルゴリズムの理解</h4>
                         <p>おすすめに載る仕組み</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">05</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">05</span></div>
                     <div class="c-content"><span class="day-tag">DAY 03</span>
                         <h4>コンテンツ企画</h4>
                         <p>アイデア出しのコツ</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">10</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">10</span></div>
                     <div class="c-content"><span class="day-tag">DAY 04</span>
                         <h4>動画撮影</h4>
-                        <p>基本テクニック</p>
+                        <p>基本テクニックと画角</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">12</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">12</span></div>
                     <div class="c-content"><span class="day-tag">DAY 05</span>
                         <h4>編集ツール</h4>
                         <p>CapCut等の使いこなし</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">13</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">13</span></div>
                     <div class="c-content"><span class="day-tag">DAY 06</span>
                         <h4>音楽とサウンド</h4>
                         <p>効果的な音源選定</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">17</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">17</span></div>
                     <div class="c-content"><span class="day-tag">DAY 07</span>
                         <h4>最適化（SEO）</h4>
                         <p>キャプションとハッシュタグ</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">18</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">18</span></div>
                     <div class="c-content"><span class="day-tag">DAY 08</span>
-                        <h4>インタラクティブ</h4>
-                        <p>デュエット/リミックス</p>
+                        <h4>インタラクティブ機能</h4>
+                        <p>デュエット/リミックス活用</p>
                     </div>
                 </div>
                 <div class="c-item">
-                    <div class="date-box" style="background:#7986cb;"><span class="db-month">FEB</span><span
-                            class="db-day">19</span></div>
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">19</span></div>
                     <div class="c-content"><span class="day-tag">DAY 09</span>
                         <h4>ライブ配信</h4>
                         <p>実践とテクニック</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">24</span></div>
+                    <div class="c-content"><span class="day-tag">DAY 10</span>
+                        <h4>アナリティクス</h4>
+                        <p>インサイトの読み解き方</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">25</span></div>
+                    <div class="c-content"><span class="day-tag">DAY 11</span>
+                        <h4>クロス戦略</h4>
+                        <p>他SNSとの連携</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">26</span></div>
+                    <div class="c-content"><span class="day-tag">DAY 12</span>
+                        <h4>コラボレーション</h4>
+                        <p>ネットワーキング</p>
+                    </div>
+                </div>
+                <div class="c-item">
+                    <div class="date-box"><span class="db-month">FEB</span><span class="db-day">27</span></div>
+                    <div class="c-content"><span class="day-tag">DAY 13</span>
+                        <h4>最終課題</h4>
+                        <p>実践と振り返り</p>
                     </div>
                 </div>
             </div>

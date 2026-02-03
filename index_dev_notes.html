@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Note: UI Harmony</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f4f8fb;
+            --card: #ffffff;
+            --text: #2d3436;
+            --sub-text: #636e72;
+            --accent: #5c6bc0;
+            --pink: #ff7675;
+            --yellow: #fdcb6e;
+            --border: #dfe6e9;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            transition: filter 0.5s;
+        }
+
+        body.modal-open .container {
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: 4rem;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        section {
+            background: var(--card);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid #fff;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            font-family: "Teko", sans-serif;
+            font-size: 2.2rem;
+            margin: 0 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px dashed var(--border);
+            padding-bottom: 15px;
+        }
+
+        h2 i {
+            color: var(--accent);
+            background: #e8eaf6;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .code-block {
+            background: #f1f3f5;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: "Fira Code", monospace;
+            color: #495057;
+            overflow-x: auto;
+            border-left: 6px solid var(--accent);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+        }
+
+        .token.sel {
+            color: #e056fd;
+            font-weight: bold;
+        }
+
+        .token.prop {
+            color: #3949ab;
+        }
+
+        .token.val {
+            color: #00b894;
+        }
+
+        details {
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        details[open] {
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(92, 107, 192, 0.15);
+        }
+
+        summary {
+            padding: 18px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fafafa;
+            transition: 0.2s;
+            color: var(--sub-text);
+        }
+
+        summary:hover {
+            background: #f0f0f0;
+            color: var(--text);
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .concept-summary i {
+            color: var(--yellow);
+        }
+
+        .newbie-summary i {
+            color: var(--pink);
+        }
+
+        .details-content {
+            padding: 30px;
+            background: #fff;
+            border-top: 1px solid var(--border);
+        }
+
+        .metaphor {
+            background: #fff0f0;
+            padding: 25px;
+            border-radius: 16px;
+            margin-top: 15px;
+            border: 2px solid #ffcccc;
+            color: #636e72;
+        }
+
+        .metaphor strong {
+            color: var(--pink);
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Badge Visual */
+        .badge-viz {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .sample-badge {
+            background: #7986cb;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: "Teko";
+            line-height: 1;
+            box-shadow: 0 5px 15px rgba(121, 134, 203, 0.4);
+        }
+
+        #diag-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        #diag-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .diag-card {
+            background: #fff;
+            width: 90%;
+            max-width: 550px;
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid #fff;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            transition: 0.3s;
+        }
+
+        #diag-modal.active .diag-card {
+            transform: scale(1);
+        }
+
+        .diag-title {
+            font-family: "Teko", sans-serif;
+            font-size: 3rem;
+            margin: 0 0 10px;
+            line-height: 1;
+        }
+
+        .diag-q {
+            font-size: 1.2rem;
+            color: var(--sub-text);
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+
+        .diag-opts {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .diag-btn {
+            background: #fff;
+            color: var(--text);
+            border: 2px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 0 var(--border);
+        }
+
+        .diag-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 rgba(92, 107, 192, 0.2);
+        }
+
+        .diag-btn i {
+            width: 30px;
+            text-align: center;
+            color: var(--sub-text);
+            font-size: 1.4rem;
+            transition: 0.2s;
+        }
+
+        .diag-btn:hover i {
+            color: var(--accent);
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #2d3436;
+            color: #fff;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            z-index: 10000;
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .back-btn {
+            display: inline-block;
+            background: var(--text);
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 40px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="diag-modal" class="active">
+        <div class="diag-card">
+            <h2 class="diag-title">UI CHECK</h2>
+            <p class="diag-q">Q. リストの日付を、ただの数字ではなく「四角い箱（Badge）」にした理由はなんだと思いますか？</p>
+            <div class="diag-opts">
+                <button class="diag-btn" onclick="setMode('newbie')"><i class="fa-solid fa-calendar"></i>
+                    <span>カレンダーの日めくりみたいで可愛いから？</span></button>
+                <button class="diag-btn" onclick="setMode('mid')"><i class="fa-solid fa-eye"></i>
+                    <span>視認性を高めるため？</span></button>
+                <button class="diag-btn" onclick="setMode('pro')"><i class="fa-solid fa-layer-group"></i>
+                    <span>Component化しやすくするため</span></button>
+            </div>
+        </div>
+    </div>
+    <div id="toast">Mode Set!</div>
+
+    <div class="container">
+        <header>
+            <div class="subtitle">UI DESIGN LOGIC</div>
+            <h1>BADGE ANATOMY</h1>
+            <p style="color:#636e72; margin-top:10px;">日付ボックスのデザイン意図</p>
+        </header>
+
+        <section>
+            <h2><i class="fa-solid fa-box"></i> 1. The Date Badge</h2>
+            <p>ただ「2月3日」と書くのではなく、色付きのボックスにすることで、リストの中で強力なアイキャッチ（目印）として機能させます。</p>
+
+            <div class="badge-viz">
+                <span style="font-weight:bold; color:#999;">Text Only:</span>
+                <span style="font-weight:bold;">02/03</span>
+                <span style="margin:0 20px; color:#ccc;">VS</span>
+                <span style="font-weight:bold; color:#999;">Badge UI:</span>
+                <div class="sample-badge"><span style="font-size:0.7rem;">FEB</span><span
+                        style="font-size:1.5rem;">03</span></div>
+            </div>
+
+            <div class="code-block"><span class="token sel">.date-box</span> {
+                <span class="token prop">background</span>: #7986cb; <span class="token comment">/* Indigo Accent
+                    */</span>
+                <span class="token prop">color</span>: #fff;
+                <span class="token prop">width</span>: 60px;
+                <span class="token prop">height</span>: 60px;
+                <span class="token prop">border-radius</span>: 12px;
+                <span class="token prop">display</span>: flex;
+                <span class="token prop">flex-direction</span>: column;
+                }
+            </div>
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> デザインの意図</summary>
+                <div class="details-content">
+                    <p>日付を「文字情報」ではなく<strong>「アイコン（図形）」</strong>として認識させるテクニックです。ユーザーはリストを流し見する際、タイトルを読む前に「いつの話か」を直感的に把握できます。
+                    </p>
+                </div>
+            </details>
+        </section>
+
+        <section>
+            <h2><i class="fa-solid fa-palette"></i> 2. Color Harmony</h2>
+            <p>ボタンの色を「真っ青」から「紫がかったインディゴ」に変更しました。</p>
+            <div class="code-block"><span class="token sel">.shortcut-btn</span> {
+                <span class="token comment">/* HeaderやDate Boxの色味に合わせる */</span>
+                <span class="token prop">background</span>: <span class="token func">linear-gradient</span>(135deg,
+                #5c6bc0, #3949ab);
+                <span class="token prop">box-shadow</span>: 0 10px 25px rgba(92, 107, 192, 0.3);
+                }
+            </div>
+            <details class="lv2">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> なぜ色を変えたの？</summary>
+                <div class="details-content">
+                    <p>以前の明るいブルーは目立っていましたが、全体の「大人っぽい紫のトーン」から浮いていました。<strong>「目立ちつつ、馴染ませる」</strong>ために、同系色の濃いグラデーションを採用し、統一感（Unity）を高めました。
+                    </p>
+                </div>
+            </details>
+        </section>
+
+        <div style="text-align:center;">
+            <a href="index.html" class="back-btn">← ポータルに戻る</a>
+        </div>
+    </div>
+
+    <script>
+        document.body.classList.add('modal-open');
+        function setMode(mode) {
+            const modal = document.getElementById('diag-modal'); const toast = document.getElementById('toast'); let msg = "";
+            modal.classList.remove('active'); document.body.classList.remove('modal-open');
+            if (mode === 'newbie') { document.querySelectorAll('details').forEach(d => d.open = true); msg = "🔰 大丈夫！デザインの魔法を解明しましょう！"; }
+            else if (mode === 'mid') { document.querySelectorAll('.lv2').forEach(d => d.open = true); document.querySelectorAll('.lv3').forEach(d => d.open = false); msg = "🔧 CSSのテクニックを見てみましょう。"; }
+            else { document.querySelectorAll('details').forEach(d => d.open = false); msg = "🚀 正解。コンポーネント指向ですね。"; }
+            toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+    </script>
+</body>
+
+</html>
