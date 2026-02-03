@@ -197,6 +197,8 @@
             box-sizing: border-box;
             background: #fff;
             position: relative;
+            overflow: hidden;
+            /* FIX: Prevent overflow for child scrolling */
         }
 
         .brand-header {
@@ -259,9 +261,9 @@
             flex: 1;
             padding-right: 10px;
             padding-bottom: 80px;
-            /* Ensure space for fixed button */
+            /* Ensure space for dev-link */
             min-height: 0;
-            /* FIX: Flexbox scroll issue */
+            /* FIX: Allow flex item to shrink for scrolling */
         }
 
         .curriculum-list::-webkit-scrollbar {
@@ -348,8 +350,8 @@
 
         /* FIX: Dev Link Position */
         .dev-link {
-            position: fixed;
-            /* Changed to fixed */
+            position: absolute;
+            /* Changed (back) to absolute so it stays in the card */
             bottom: 20px;
             right: 20px;
             background: #fff;
