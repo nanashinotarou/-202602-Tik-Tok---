@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Note: UI Harmony</title>
+    <title>Engineering Design Log</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
@@ -34,12 +34,6 @@
         .container {
             max-width: 900px;
             margin: 0 auto;
-            transition: filter 0.5s;
-        }
-
-        body.modal-open .container {
-            filter: blur(8px);
-            pointer-events: none;
         }
 
         header {
@@ -56,7 +50,7 @@
         }
 
         .subtitle {
-            background: var(--accent);
+            background: var(--text);
             color: #fff;
             padding: 4px 16px;
             border-radius: 20px;
@@ -156,11 +150,7 @@
         }
 
         .concept-summary i {
-            color: var(--yellow);
-        }
-
-        .newbie-summary i {
-            color: var(--pink);
+            color: var(--accent);
         }
 
         .details-content {
@@ -169,23 +159,6 @@
             border-top: 1px solid var(--border);
         }
 
-        .metaphor {
-            background: #fff0f0;
-            padding: 25px;
-            border-radius: 16px;
-            margin-top: 15px;
-            border: 2px solid #ffcccc;
-            color: #636e72;
-        }
-
-        .metaphor strong {
-            color: var(--pink);
-            font-size: 1.2rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        /* Badge Visual */
         .badge-viz {
             display: flex;
             gap: 15px;
@@ -209,120 +182,6 @@
             box-shadow: 0 5px 15px rgba(121, 134, 203, 0.4);
         }
 
-        #diag-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s;
-        }
-
-        #diag-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .diag-card {
-            background: #fff;
-            width: 90%;
-            max-width: 550px;
-            padding: 50px;
-            border-radius: 30px;
-            border: 1px solid #fff;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            transform: scale(0.9);
-            transition: 0.3s;
-        }
-
-        #diag-modal.active .diag-card {
-            transform: scale(1);
-        }
-
-        .diag-title {
-            font-family: "Teko", sans-serif;
-            font-size: 3rem;
-            margin: 0 0 10px;
-            line-height: 1;
-        }
-
-        .diag-q {
-            font-size: 1.2rem;
-            color: var(--sub-text);
-            margin-bottom: 40px;
-            font-weight: bold;
-        }
-
-        .diag-opts {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .diag-btn {
-            background: #fff;
-            color: var(--text);
-            border: 2px solid var(--border);
-            padding: 20px;
-            border-radius: 16px;
-            cursor: pointer;
-            text-align: left;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 4px 0 var(--border);
-        }
-
-        .diag-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0 rgba(92, 107, 192, 0.2);
-        }
-
-        .diag-btn i {
-            width: 30px;
-            text-align: center;
-            color: var(--sub-text);
-            font-size: 1.4rem;
-            transition: 0.2s;
-        }
-
-        .diag-btn:hover i {
-            color: var(--accent);
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #2d3436;
-            color: #fff;
-            padding: 12px 35px;
-            border-radius: 50px;
-            font-weight: bold;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-            z-index: 10000;
-        }
-
-        #toast.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
         .back-btn {
             display: inline-block;
             background: var(--text);
@@ -344,146 +203,86 @@
 </head>
 
 <body>
-    <div id="diag-modal" class="active">
-        <div class="diag-card">
-            <h2 class="diag-title">UI CHECK</h2>
-            <p class="diag-q">Q. リストの日付を、ただの数字ではなく「四角い箱（Badge）」にした理由はなんだと思いますか？</p>
-            <div class="diag-opts">
-                <button class="diag-btn" onclick="setMode('newbie')"><i class="fa-solid fa-calendar"></i>
-                    <span>カレンダーの日めくりみたいで可愛いから？</span></button>
-                <button class="diag-btn" onclick="setMode('mid')"><i class="fa-solid fa-eye"></i>
-                    <span>視認性を高めるため？</span></button>
-                <button class="diag-btn" onclick="setMode('pro')"><i class="fa-solid fa-layer-group"></i>
-                    <span>Component化しやすくするため</span></button>
-            </div>
-        </div>
-    </div>
-    <div id="toast">Mode Set!</div>
-
     <div class="container">
         <header>
-            <div class="subtitle">UI DESIGN LOGIC</div>
-            <h1>BADGE ANATOMY</h1>
-            <p style="color:#636e72; margin-top:10px;">日付ボックスのデザイン意図</p>
+            <div class="subtitle">ENGINEERING LOG</div>
+            <h1>UI ARCHITECTURE</h1>
+            <p style="color:#636e72; margin-top:10px;">UX設計と技術的意図の解説</p>
         </header>
 
         <section>
-            <h2><i class="fa-solid fa-box"></i> 1. The Date Badge</h2>
-            <p>ただ「2月3日」と書くのではなく、色付きのボックスにすることで、リストの中で強力なアイキャッチ（目印）として機能させます。</p>
+            <h2><i class="fa-solid fa-box"></i> 1. Cognitive Load Reduction</h2>
+            <p><strong>なぜ「日付」を強調表示（Badge UI）するのか</strong></p>
+            <p>ユーザーが学習カリキュラムを閲覧する際、最も重要なコンテキストは「いつ（When）」と「なにを（What）」です。
+                テキストだけでなく、日付を「視覚的なオブジェクト」として独立させることで、スキャナビリティ（流し読みのしやすさ）を向上させ、認知負荷を低減させています。</p>
 
             <div class="badge-viz">
-                <span style="font-weight:bold; color:#999;">Text Only:</span>
+                <span style="font-weight:bold; color:#999;">Text Only (Linear):</span>
                 <span style="font-weight:bold;">02/03</span>
                 <span style="margin:0 20px; color:#ccc;">VS</span>
-                <span style="font-weight:bold; color:#999;">Badge UI:</span>
+                <span style="font-weight:bold; color:#999;">Badge UI (Spatial):</span>
                 <div class="sample-badge"><span style="font-size:0.7rem;">FEB</span><span
                         style="font-size:1.5rem;">03</span></div>
             </div>
 
             <div class="code-block"><span class="token sel">.date-box</span> {
-                <span class="token prop">background</span>: #7986cb; <span class="token comment">/* Indigo Accent
-                    */</span>
-                <span class="token prop">color</span>: #fff;
-                <span class="token prop">width</span>: 60px;
-                <span class="token prop">height</span>: 60px;
-                <span class="token prop">border-radius</span>: 12px;
                 <span class="token prop">display</span>: flex;
                 <span class="token prop">flex-direction</span>: column;
+                <span class="token prop">background</span>: #7986cb; <span class="token comment">/* Visual Anchor
+                    */</span>
                 }
             </div>
-            <details class="lv2">
-                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> デザインの意図</summary>
-                <div class="details-content">
-                    <p>日付を「文字情報」ではなく<strong>「アイコン（図形）」</strong>として認識させるテクニックです。ユーザーはリストを流し見する際、タイトルを読む前に「いつの話か」を直感的に把握できます。
-                    </p>
-                </div>
-            </details>
         </section>
 
         <section>
-            <h2><i class="fa-solid fa-palette"></i> 2. Color Harmony</h2>
-            <p>ボタンの色を「真っ青」から「紫がかったインディゴ」に変更しました。</p>
+            <h2><i class="fa-solid fa-layer-group"></i> 2. Visual Hierarchy & Unity</h2>
+            <p><strong>色彩設計による統一感</strong></p>
+            <p>アクションボタンには、ヘッダーやバッジと同一の色相（Hue）を持つグラデーションを採用しました。
+                彩度（Saturation）を統一することで、重要なアクション要素を目立たせつつも、UI全体としてのノイズを排除し、プロフェッショナルな印象を与えます。</p>
             <div class="code-block"><span class="token sel">.shortcut-btn</span> {
-                <span class="token comment">/* HeaderやDate Boxの色味に合わせる */</span>
                 <span class="token prop">background</span>: <span class="token func">linear-gradient</span>(135deg,
                 #5c6bc0, #3949ab);
-                <span class="token prop">box-shadow</span>: 0 10px 25px rgba(92, 107, 192, 0.3);
+                <span class="token comment">/* Consistent Brand Colors */</span>
                 }
             </div>
-            <details class="lv2">
-                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> なぜ色を変えたの？</summary>
-                <div class="details-content">
-                    <p>以前の明るいブルーは目立っていましたが、全体の「大人っぽい紫のトーン」から浮いていました。<strong>「目立ちつつ、馴染ませる」</strong>ために、同系色の濃いグラデーションを採用し、統一感（Unity）を高めました。
-                    </p>
-                </div>
-            </details>
         </section>
 
-
-
         <section>
-            <h2><i class="fa-solid fa-arrows-rotate"></i> 3. Synchronized Highlighting</h2>
-            <p>カレンダーの日付にマウスを乗せると、右側のリストが連動して光ります。</p>
+            <h2><i class="fa-solid fa-calendar-days"></i> 3. Dual-View Synchronization</h2>
+            <p><strong>カレンダー機能の目的（Purpose）</strong></p>
+            <p>リスト表示（Linear View）は詳細情報の確認に適していますが、<strong>「スケジュールの全体感（Temporal Context）」</strong>の把握には不向きです。
+                カレンダー（Grid View）を並列させることで、ユーザーは「週のどこが忙しいか」「次の休講日はいつか」を直感的に把握できます。</p>
 
-            <div
-                style="background:#fff3e0; padding:15px; border-radius:8px; border-left:4px solid #ff9800; margin-bottom:20px; font-size:0.9rem;">
-                <strong><i class="fa-solid fa-triangle-exclamation"></i> UX UPDATE:</strong>
-                <br>当初は「リストの該当箇所まで自動スクロール」させていましたが、マウスを動かすたびに画面がガクガク動くため廃止しました。
-                <strong>「ユーザーの操作（視線）を邪魔しない」</strong>ことが、派手な機能よりも重要です。
-            </div>
+            <p><strong>技術的実装（Technical Implementation）</strong></p>
+            <p>カレンダーとリストを双方向にリンクさせる際、パフォーマンスとUXを最優先しました。</p>
+            <ul>
+                <li><strong>Mapping:</strong> DOM要素に `data-day` 属性と `id` を付与し、O(1)の計算量で対応関係を特定します。</li>
+                <li><strong>No Auto-Scroll:</strong> スクロール位置の強制変更は「User Agency（制御権）」を奪う行為であるため排除し、
+                    純粋な視覚フィードバック（ハイライト）のみを提供しています。</li>
+            </ul>
 
             <div class="code-block"><span class="token sel">const</span> toggleHighlight = (id, isActive) => {
-                <span class="token comment">// スクロール処理は削除！クラスの付け替えだけを行う</span>
-                target.classList.<span class="token func">toggle</span>(<span class="token val">'active-sync'</span>,
+                <span class="token comment">// Pure state toggle, no scroll side-effects</span>
+                const cell = document.querySelector(`.cal-cell[data-day="${id}"]`);
+                cell.classList.<span class="token func">toggle</span>(<span class="token val">'active-sync'</span>,
                 isActive);
                 };
             </div>
-
-            <details class="lv2">
-                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> User Agency（ユーザーの主体性）</summary>
-                <div class="details-content">
-                    <p>Webサイトが勝手に動くと、ユーザーは「コントロールを奪われた」と感じて不快になります。
-                        特にホバー（Hover）のような軽い操作で、スクロールのような重い変化を起こすべきではありません。</p>
-                </div>
-            </details>
         </section>
 
         <section>
-            <h2><i class="fa-solid fa-layer-group"></i> 4. Floating Action Button</h2>
-            <p>このページへのリンクボタンは、リストエリアの右下に絶対配置（Absolute）されています。</p>
-            <div class="code-block"><span class="token sel">.dev-link</span> {
-                <span class="token prop">position</span>: absolute;
-                <span class="token prop">bottom</span>: 20px;
-                <span class="token prop">right</span>: 20px;
-                <span class="token prop">z-index</span>: 100;
-                }
-            </div>
-            <details class="lv2">
-                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> なぜ Absolute なの？</summary>
-                <div class="details-content">
-                    <p>当初は画面全体に対する Fixed 配置でしたが、ウィンドウサイズによってはコンテンツと被るため、
-                        「リストエリア（カード）の右下」に配置し直しました。これにより、カードデザインとの一体感が生まれ、
-                        スクロールしてもボタンは常に最適な位置（右下）に留まります。</p>
-                </div>
-            </details>
+            <h2><i class="fa-solid fa-hand-pointer"></i> 4. Accessibility & Navigation</h2>
+            <p><strong>絶対配置（Absolute Positioning）によるナビゲーション</strong></p>
+            <p>「Design Notes」へのリンクは、コンテンツカード内での `position: absolute` を採用しました。</p>
+            <p>これは、画面上の固定位置（Fixed）が抱える「メインコンテンツへの被り」リスクを回避しつつ、
+                カードというコンテナ内での一貫したアクセス性を担保するためです。
+                インタラクションコストを下げ、開発者向け情報への導線を常に確保しています。</p>
         </section>
 
         <div style="text-align:center;">
-            <a href="index.html" class="back-btn">← ポータルに戻る</a>
+            <a href="index.html" class="back-btn">← Portal UI</a>
         </div>
     </div>
-
-    <script>
-        document.body.classList.add('modal-open');
-        function setMode(mode) {
-            const modal = document.getElementById('diag-modal'); const toast = document.getElementById('toast'); let msg = "";
-            modal.classList.remove('active'); document.body.classList.remove('modal-open');
-            if (mode === 'newbie') { document.querySelectorAll('details').forEach(d => d.open = true); msg = "🔰 大丈夫！デザインの魔法を解明しましょう！"; }
-            else if (mode === 'mid') { document.querySelectorAll('.lv2').forEach(d => d.open = true); document.querySelectorAll('.lv3').forEach(d => d.open = false); msg = "🔧 CSSのテクニックを見てみましょう。"; }
-            else { document.querySelectorAll('details').forEach(d => d.open = false); msg = "🚀 正解。コンポーネント指向ですね。"; }
-            toast.textContent = msg; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 4000);
-        }
-    </script>
 </body>
 
 </html>
