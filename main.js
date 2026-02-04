@@ -205,4 +205,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     highlightToday();
 
+    // --- AUTO-UPDATE LATEST BUTTON ---
+    const updateLatestButton = () => {
+        // Find all "published" items (anchor tags in the curriculum list)
+        const publishedItems = document.querySelectorAll('.curriculum-list a.c-item');
+        if (publishedItems.length > 0) {
+            // The last one is the latest released day
+            const latestItem = publishedItems[publishedItems.length - 1];
+
+            const latestUrl = latestItem.getAttribute('href');
+
+            // Extract Vol Number from ID (e.g. "d02" -> 2)
+            const dayId = latestItem.id; // "d01", "d02"
+            const volNum = parseInt(dayId.replace('d', ''));
+
+            const btn = document.querySelector('.shortcut-btn');
+            if (btn) {
+                btn.href = latestUrl;
+                btn.innerHTML = `<i class="fa-solid fa-play"></i> LATEST: Vol.${volNum} テキストを開く`;
+            }
+        }
+    };
+    updateLatestButton();
+
 });

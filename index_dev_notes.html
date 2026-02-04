@@ -563,7 +563,7 @@
             <div class="diag-actions hidden" id="diag-actions">
                 <p class="diag-q">
                     このあとのページではこのトップページの仕様について共有していきます。<br>
-                    ・<strong></strong>ざっくり役割やねらい</strong>を知りたい方は一番上を、<br>
+                    ・<strong>ざっくり役割やねらい</strong>を知りたい方は一番上を、<br>
                     ・その<strong>コードを具体的に</strong>知りたい人は真ん中を、<br>
                     ・<strong>設計の意図や背景</strong>まで知りたい方は一番下をご覧くださいませ。
                 </p>
@@ -605,9 +605,110 @@
             <p style="color:#636e72; margin-top:10px;">UX設計と技術的意図の解説</p>
         </header>
 
-        <!-- SECTION 1: BADGE UI -->
+        <!-- SECTION 1: VISUAL HIERARCHY (Foundation) -->
         <section>
-            <h2><i class="fa-solid fa-box"></i> 1. Cognitive Load Reduction</h2>
+            <h2><i class="fa-solid fa-layer-group"></i> 1. Visual Hierarchy</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    色のルールを決める</summary>
+                <div class="details-content">
+                    <p><strong>「紫色は、押せる合図」</strong></p>
+                    <p>信号機が「青なら進め」であるように、このサイトでも「紫色のグラデーションなら押せるボタン」というルールを徹底しています。</p>
+                    <p>あちこちにいろんな色を使うのではなく、大事な場所だけ色をそろえることで、
+                        初めて使う人でも「次はここを押せばいいんだな」と迷わず操作できるようになります。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: CSS
+                    Variables & Gradient</summary>
+                <div class="code-block"><span class="token sel">:root</span> {
+                    <span class="token prop">--accent</span>: #5c6bc0;
+                    }
+                    <span class="token sel">.shortcut-btn</span> {
+                    <span class="token prop">background</span>: <span class="token func">linear-gradient</span>(135deg,
+                    #5c6bc0, #3949ab);
+                    }
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Brand Consistency</summary>
+                <div class="details-content">
+                    <p><strong>一貫性が生む信頼性（Trust）</strong></p>
+                    <p>色彩設計において最も避けるべきは「意味のない色の多用」です。
+                        コンバージョン（クリック）を狙う箇所において、HUE（色相）を統一しつつ、Gradient（グラデーション）でリッチさを演出することは、
+                        <strong>「洗練されたツールである」という信頼感</strong>をユーザーに与えます。
+                    </p>
+                    <p>安っぽいツールだと思われて使われないリスクを、UIの質で低減させています。</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 2: CONTEXT AWARENESS (Orientation) -->
+        <section>
+            <h2><i class="fa-solid fa-clock"></i> 2. Context Awareness</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    「今、どこ？」を教える</summary>
+                <div class="details-content">
+                    <p><strong>デジタル版の「You Are Here（現在地）」マップ</strong></p>
+                    <p>カレンダーを見た瞬間、「で、今日はどこだっけ？」と探す時間はわずか数秒ですが、毎日続くとストレスになります。<br>
+                        そこで、今日の日付のマスだけ<strong>「赤枠とTODAYバッジ」</strong>で自動的に強調するようにしました。</p>
+                    <p>ページを開いた瞬間に「あ、今日はここからだな」と脳が即座に理解できるので、迷いなく学習をスタートできます。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Date Object
+                    & DOM Logic</summary>
+                <div class="code-block"><span class="token sel">const</span> highlightToday = () => {
+                    <span class="token comment">// Get System Date</span>
+                    const today = new <span class="token func">Date</span>();
+
+                    <span class="token comment">// Strict constraints for this specific training period</span>
+                    if (today.getFullYear() !== 2026) return;
+
+                    <span class="token comment">// Logic to find the correct cell DOM element</span>
+                    const target = findCell(today.getMonth(), today.getDate());
+
+                    <span class="token comment">// Apply CSS class</span>
+                    if (target) target.classList.<span class="token func">add</span>(<span
+                        class="token val">'is-today'</span>);
+                    };
+                </div>
+                <div class="details-content">
+                    <p>端末の時計（System Date）を取得し、研修期間（2026年2月〜3月上旬）に該当する場合のみ動作します。<br>
+                        JSで動的にクラス <code>.is-today</code>
+                        を付与し、CSSのアニメーション（<code>@keyframes bounce-badge</code>）で視線を集める演出を行っています。</p>
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Just-in-Time Information</summary>
+                <div class="details-content">
+                    <p><strong>時間的迷子の防止 (Temporal Disorientation)</strong></p>
+                    <p>ユーザーは常に「自分のコンテキスト（今の状況）」と「コンテンツ」を照らし合わせる作業を行っています。<br>
+                        システム側から能動的に<strong>「今はここです（Today）」</strong>と提示する（Just-in-Time）ことで、
+                        ユーザーがカレンダーをスキャンして現在地を特定する認知コストを「ゼロ」にしています。</p>
+                    <p>これも「学習を開始するまでの摩擦（Friction）」を極限まで減らすためのUX戦略の一つです。</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 3: COGNITIVE LOAD (Information Design) -->
+        <section>
+            <h2><i class="fa-solid fa-box"></i> 3. Cognitive Load Reduction</h2>
 
             <div class="badge-viz">
                 <span style="font-weight:bold; color:#999;">Text Only:</span>
@@ -662,54 +763,9 @@
             </details>
         </section>
 
-        <!-- SECTION 2: COLOR HARMONY -->
+        <!-- SECTION 4: DUAL-VIEW SYNC (Interaction) -->
         <section>
-            <h2><i class="fa-solid fa-layer-group"></i> 2. Visual Hierarchy</h2>
-
-            <!-- LV 1 -->
-            <details class="lv-concept">
-                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
-                    色のルールを決める</summary>
-                <div class="details-content">
-                    <p><strong>「紫色は、押せる合図」</strong></p>
-                    <p>信号機が「青なら進め」であるように、このサイトでも「紫色のグラデーションなら押せるボタン」というルールを徹底しています。</p>
-                    <p>あちこちにいろんな色を使うのではなく、大事な場所だけ色をそろえることで、
-                        初めて使う人でも「次はここを押せばいいんだな」と迷わず操作できるようになります。</p>
-                </div>
-            </details>
-
-            <!-- LV 2 -->
-            <details class="lv-code">
-                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: CSS
-                    Variables & Gradient</summary>
-                <div class="code-block"><span class="token sel">:root</span> {
-                    <span class="token prop">--accent</span>: #5c6bc0;
-                    }
-                    <span class="token sel">.shortcut-btn</span> {
-                    <span class="token prop">background</span>: <span class="token func">linear-gradient</span>(135deg,
-                    #5c6bc0, #3949ab);
-                    }
-                </div>
-            </details>
-
-            <!-- LV 3 -->
-            <details class="lv-arch">
-                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
-                    Brand Consistency</summary>
-                <div class="details-content">
-                    <p><strong>一貫性が生む信頼性（Trust）</strong></p>
-                    <p>色彩設計において最も避けるべきは「意味のない色の多用」です。
-                        コンバージョン（クリック）を狙う箇所において、HUE（色相）を統一しつつ、Gradient（グラデーション）でリッチさを演出することは、
-                        <strong>「洗練されたツールである」という信頼感</strong>をユーザーに与えます。
-                    </p>
-                    <p>安っぽいツールだと思われて使われないリスクを、UIの質で低減させています。</p>
-                </div>
-            </details>
-        </section>
-
-        <!-- SECTION 3: CALENDAR (UPDATED) -->
-        <section>
-            <h2><i class="fa-solid fa-calendar-days"></i> 3. Dual-View Synchronization</h2>
+            <h2><i class="fa-solid fa-calendar-days"></i> 4. Dual-View Synchronization</h2>
 
             <!-- LV 1 -->
             <details class="lv-concept">
@@ -752,8 +808,9 @@
             </details>
         </section>
 
+        <!-- SECTION 5: ACCESSIBILITY (Layout) -->
         <section>
-            <h2><i class="fa-solid fa-hand-pointer"></i> 4. Accessibility</h2>
+            <h2><i class="fa-solid fa-hand-pointer"></i> 5. Accessibility</h2>
 
             <!-- LV 1 -->
             <details class="lv-concept">
@@ -799,58 +856,63 @@
             </details>
         </section>
 
-        <!-- SECTION 5: TODAY HIGHLIGHT (NEW) -->
+        <!-- SECTION 6: ZERO MAINTENANCE (Automation) -->
         <section>
-            <h2><i class="fa-solid fa-clock"></i> 5. Context Awareness</h2>
+            <h2><i class="fa-solid fa-robot"></i> 6. Zero Maintenance Logic</h2>
 
             <!-- LV 1 -->
             <details class="lv-concept">
                 <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
-                    「今、どこ？」を教える</summary>
+                    「ボット」に任せる</summary>
                 <div class="details-content">
-                    <p><strong>デジタル版の「You Are Here（現在地）」マップ</strong></p>
-                    <p>カレンダーを見た瞬間、「で、今日はどこだっけ？」と探す時間はわずか数秒ですが、毎日続くとストレスになります。<br>
-                        そこで、今日の日付のマスだけ<strong>「赤枠とTODAYバッジ」</strong>で自動的に強調するようにしました。</p>
-                    <p>ページを開いた瞬間に「あ、今日はここからだな」と脳が即座に理解できるので、迷いなく学習をスタートできます。</p>
+                    <p><strong>「最新のテキストどこだっけ？」をなくす</strong></p>
+                    <p>トップページにある「LATEST: Vol.XX テキストを開く」という大きな青いボタン。<br>
+                        実はこれ、人間が毎日書き換えているわけではありません。</p>
+                    <p>サイトを開いた瞬間に、プログラムが「今公開されている一番新しい教材はどれかな？」と一瞬でリストをチェックし、
+                        <strong>勝手にボタンの飛び先と名前（Vol.2など）を書き換えています。</strong><br>
+                        運営側が更新を忘れても、ボタンは常に最新。これが「エンジニアの怠惰（良い意味での）」です。
+                    </p>
                 </div>
             </details>
 
             <!-- LV 2 -->
             <details class="lv-code">
-                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Date Object
-                    & DOM Logic</summary>
-                <div class="code-block"><span class="token sel">const</span> highlightToday = () => {
-                    <span class="token comment">// Get System Date</span>
-                    const today = new <span class="token func">Date</span>();
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: DOM
+                    Traversal
+                </summary>
+                <div class="code-block"><span class="token sel">const</span> updateLatestButton = () => {
+                    <span class="token comment">// Find all 'active' links</span>
+                    const published = document.<span class="token func">querySelectorAll</span>(<span
+                        class="token val">'.curriculum-list a.c-item'</span>);
 
-                    <span class="token comment">// Strict constraints for this specific training period</span>
-                    if (today.getFullYear() !== 2026) return;
+                    if (published.length > 0) {
+                    <span class="token comment">// Get the last one (Latest)</span>
+                    const latest = published[published.length - 1];
 
-                    <span class="token comment">// Logic to find the correct cell DOM element</span>
-                    const target = findCell(today.getMonth(), today.getDate());
-
-                    <span class="token comment">// Apply CSS class</span>
-                    if (target) target.classList.<span class="token func">add</span>(<span
-                        class="token val">'is-today'</span>);
+                    <span class="token comment">// Update Button DOM</span>
+                    const btn = document.<span class="token func">querySelector</span>(<span
+                        class="token val">'.shortcut-btn'</span>);
+                    btn.href = latest.href;
+                    btn.innerHTML = `LATEST: ${latest.title}`;
+                    }
                     };
                 </div>
                 <div class="details-content">
-                    <p>端末の時計（System Date）を取得し、研修期間（2026年2月〜3月上旬）に該当する場合のみ動作します。<br>
-                        JSで動的にクラス <code>.is-today</code>
-                        を付与し、CSSのアニメーション（<code>@keyframes bounce-badge</code>）で視線を集める演出を行っています。</p>
+                    <p><code>.curriculum-list</code> 内にある <code>a</code> タグ（公開済みアイテム）だけを全て取得し、
+                        その配列の末尾（<code>length - 1</code>）にある要素を「最新」と特定しています。<br>
+                        あとはそのリンク先情報をボタンにコピーするだけ。O(n)のシンプルなロジックです。</p>
                 </div>
             </details>
 
             <!-- LV 3 -->
             <details class="lv-arch">
                 <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
-                    Just-in-Time Information</summary>
+                    Operational Excellence</summary>
                 <div class="details-content">
-                    <p><strong>時間的迷子の防止 (Temporal Disorientation)</strong></p>
-                    <p>ユーザーは常に「自分のコンテキスト（今の状況）」と「コンテンツ」を照らし合わせる作業を行っています。<br>
-                        システム側から能動的に<strong>「今はここです（Today）」</strong>と提示する（Just-in-Time）ことで、
-                        ユーザーがカレンダーをスキャンして現在地を特定する認知コストを「ゼロ」にしています。</p>
-                    <p>これも「学習を開始するまでの摩擦（Friction）」を極限まで減らすためのUX戦略の一つです。</p>
+                    <p><strong>ヒューマンエラーの徹底排除</strong></p>
+                    <p>「教材を追加したのに、トップページのリンクを張り忘れた」というミスは、運用フェーズで頻発します。<br>
+                        システム側で「公開状態のみを検知して自動追従」させることで、<strong>運用コストをゼロにし、リンク切れのリスクを根絶</strong>しています。</p>
+                    <p>「人間はミスをする。だからシステムがカバーする」という、堅牢な運用設計の一例です。</p>
                 </div>
             </details>
         </section>
