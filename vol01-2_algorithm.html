@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vol.1 Day 2: The Algorithm & Canva</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f0f4f8;
+            --bg-card: #ffffff;
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --accent-cyan: #00bcd4;
+            --accent-pink: #e91e63;
+            --gemini-blue: #4285f4;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 2.0;
+            margin: 0;
+            padding: 40px 20px;
+            background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            color: #fff;
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+        }
+
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: "Teko", sans-serif;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            /* Adjusted for longer title */
+            margin: 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #b2bec3;
+        }
+
+        /* --- CONTENT BODY --- */
+        .content {
+            padding: 60px 40px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin: 80px 0 40px;
+            font-family: "Teko", sans-serif;
+            color: #000;
+            border-bottom: 3px solid #eee;
+            padding-bottom: 10px;
+            line-height: 1;
+        }
+
+        h2 span {
+            color: var(--accent-cyan);
+            margin-right: 15px;
+            font-size: 3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 2em;
+            text-align: justify;
+            color: #455a64;
+        }
+
+        strong {
+            background: linear-gradient(transparent 60%, #fff9c4 60%);
+            padding: 0 4px;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        /* --- SPECIAL BOXES --- */
+        .box {
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        /* TikTok Box */
+        .box.tiktok {
+            background: #212121;
+            color: #fff;
+            border: 2px solid #000;
+        }
+
+        .box.tiktok p {
+            color: #cfd8dc;
+        }
+
+        .box.tiktok strong {
+            background: var(--accent-pink);
+            color: #fff;
+        }
+
+        .box.tiktok::before {
+            content: "\e07b";
+            font-family: "Font Awesome 6 Brands";
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: #000;
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Video List (Embeds) */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Step Box (Canva) */
+        .step-box {
+            background: #fff;
+            border: 2px dashed #00bcd4;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 20px;
+        }
+
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--accent-cyan);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            font-family: "Teko", sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .step-list h4 {
+            margin: 0 0 5px 0;
+            color: #2d3436;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: #636e72;
+        }
+
+        /* Quiz */
+        .quiz-area {
+            margin-top: 80px;
+            padding: 40px;
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-header h2 {
+            border: none;
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="hero">
+            <span class="tag-pill">Vol.1 Day 2</span>
+            <h1>THE ALGORITHM & CANVAS</h1>
+            <div class="hero-sub">AIに愛される論理と、指先で描くクリエイティブ</div>
+        </div>
+
+        <div class="content">
+
+            <p style="font-size:1.2rem; font-weight:bold; color:#000; line-height:1.6;">
+                「良い動画」とは何でしょうか？<br>
+                人間が見て「面白い」と思う感覚的な面白さと、AIが「これは伸びる」と判断する数値的な評価。<br>
+                この2つを理解し、最短で形にするツール（Canva）をマスターするのが今日のゴールです。
+            </p>
+
+            <div class="video-list">
+                <!-- Canva Tutorial -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/fn9BRQpxr8c?si=JPdhbXAXhvFi0XNA"
+                        allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 Canvaの使い方</div>
+                </div>
+                <!-- Algorithm Theory -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/v4dezsBeMuc?si=sz4qPOzZ57o1ukZc"
+                        allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🧠 アルゴリズム解説</div>
+                </div>
+            </div>
+
+            <h2><span>01</span> THE LOGIC: 加算式アルゴリズム</h2>
+            <p>
+                TikTokのAIは、あなたの動画を「減点」しません。<br>
+                ユーザーが良い反応をするたびに<strong>スコアが加算（プラス）</strong>されていくシステムです。<br>
+                どんなに無名なアカウントでも、このスコアさえ高ければ、AIは公平におすすめ（For You Feed）に掲載してくれます。
+            </p>
+
+            <div class="box tiktok">
+                <h4 style="margin-top:0; color:var(--accent-cyan);">📊 評価される重要指標（加算項目）</h4>
+                <ul style="padding-left:20px; margin-bottom:0;">
+                    <li style="margin-bottom:10px;">
+                        <strong>視聴維持率（最重要）:</strong><br>
+                        動画が途中で離脱されず、最後まで見られたか？（なんなら2回繰り返されたか？）
+                    </li>
+                    <li style="margin-bottom:10px;">
+                        <strong>エンゲージメント:</strong><br>
+                        いいね、コメント、シェア、保存のアクションが行われたか？
+                    </li>
+                    <li style="margin-bottom:0px;">
+                        <strong>プロフィール遷移:</strong><br>
+                        動画を見た後に「この人誰？」とプロフィールがクリックされたか？
+                    </li>
+                </ul>
+            </div>
+
+            <h2><span>02</span> THE TOOL: Canva実践ガイド</h2>
+            <p>
+                アルゴリズムを理解したら、次は「作る」技術です。<br>
+                スマホで完結し、プロ並みの動画が作れる<strong>Canva</strong>の操作をマスターしましょう。
+            </p>
+
+            <div class="step-box">
+                <h3
+                    style="margin-top:0; border:none; padding:0; justify-content:center; text-align:center; color:#00bcd4;">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> 実習：リール動画制作フロー
+                </h3>
+
+                <ul class="step-list">
+                    <li>
+                        <h4>プロジェクト作成</h4>
+                        <div class="step-desc">
+                            アプリを開き、右上の「＋」または「作成」から<strong>「Instagramリール動画（9:16縦型）」</strong>を選択します。<br>
+                            ※TikTok用でもこのサイズが世界標準です。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>動画の編集（カット・速度）</h4>
+                        <div class="step-desc">
+                            <strong>「00:38 ダッシュボード」</strong><br>
+                            撮影した動画を読み込み、不要な部分を「分割（スプリット）」して削除。間延びする部分は「速度」を1.2〜1.5倍にしてテンポアップします。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>装飾（テキスト・エフェクト）</h4>
+                        <div class="step-desc">
+                            <strong>「07:24 テキスト挿入」</strong><br>
+                            重要なキーワードをテロップに入れます。「アニメーション」機能で動きをつけると視線誘導効果が高まります。<br>
+                            話しているタイミングに合わせてテキストが出てくるよう、<strong>「表示タイミングの調整」</strong>を行うのがプロへの第一歩です。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>仕上げ（音源・書き出し）</h4>
+                        <div class="step-desc">
+                            <strong>「15:09 音声/BGM」</strong><br>
+                            動画の雰囲気に合ったBGMを選定します。最後に右上の「共有」→「ダウンロード（MP4形式）」でスマホに保存して完了です。
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="quiz-area">
+                <div class="quiz-header">
+                    <h2>KNOWLEDGE <span>CHECK</span></h2>
+                    <p style="color:#636e72;">Vol.1 Day 2 理解度テスト / 全5問</p>
+                </div>
+                <div id="quiz-vol01-2">
+                    <div style="text-align:center;">Loading Quiz System...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="text-align:center; padding-top:40px; color:#b2bec3; font-size:0.8rem;">
+        © 2026 DX Training Program / Feb Course
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
