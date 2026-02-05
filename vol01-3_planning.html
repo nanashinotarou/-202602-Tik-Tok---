@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vol.1 Day 3: Planning & Factory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f0f4f8;
+            --bg-card: #ffffff;
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --accent-cyan: #00bcd4;
+            --accent-pink: #e91e63;
+            --gemini-blue: #4285f4;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 2.0;
+            margin: 0;
+            padding: 40px 20px;
+            background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            color: #fff;
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+        }
+
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: "Teko", sans-serif;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin: 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #b2bec3;
+        }
+
+        /* --- CONTENT BODY --- */
+        .content {
+            padding: 60px 40px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin: 80px 0 40px;
+            font-family: "Teko", sans-serif;
+            color: #000;
+            border-bottom: 3px solid #eee;
+            padding-bottom: 10px;
+            line-height: 1;
+        }
+
+        h2 span {
+            color: var(--accent-cyan);
+            margin-right: 15px;
+            font-size: 3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 2em;
+            text-align: justify;
+            color: #455a64;
+        }
+
+        strong {
+            background: linear-gradient(transparent 60%, #fff9c4 60%);
+            padding: 0 4px;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        /* --- SPECIAL BOXES --- */
+        .box {
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            position: relative;
+        }
+
+        .box.gemini {
+            background: #e3f2fd;
+            border: 2px solid #4285f4;
+        }
+
+        .box.gemini h4 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        /* Video List (Embeds) */
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Step Box (Canva) */
+        .step-box {
+            background: #fff;
+            border: 2px dashed #00bcd4;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 25px;
+        }
+
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--accent-cyan);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            font-family: "Teko", sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .step-list h4 {
+            margin: 0 0 5px 0;
+            color: #2d3436;
+            font-size: 1.2rem;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: #636e72;
+        }
+
+        /* Quiz */
+        .quiz-area {
+            margin-top: 80px;
+            padding: 40px;
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-header h2 {
+            border: none;
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="hero">
+            <span class="tag-pill">Vol.1 Day 3</span>
+            <h1>PLANNING & FACTORY</h1>
+            <div class="hero-sub">脳で汗をかき、AIで量産する。クリエイティブの産業革命。</div>
+        </div>
+
+        <div class="content">
+
+            <p style="font-size:1.2rem; font-weight:bold; color:#000; line-height:1.6;">
+                3日目のテーマは「生産革命」です。<br>
+                前半はAI（Gemini）を壁打ち相手に、確実に響く企画を練り上げる「脳」の作業。<br>
+                後半はCanvaの強力な一括作成機能を使い、その企画を短時間で大量に形にする「工場」の構築です。
+            </p>
+
+            <!-- MORNING SECTION -->
+            <h2><span>01</span> THE BRAIN: 企画とリサーチ</h2>
+            <p>
+                「なんとなく」で動画を作っていませんか？<br>
+                プロは必ず「リサーチ」から始めます。うまくいっている事例を分析し、自分のオリジナリティと融合させる方法を学びましょう。
+            </p>
+
+            <div class="video-list">
+                <!-- Video 1 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/9o1OL_e1sjY" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 企画の基礎 1</div>
+                </div>
+                <!-- Video 2 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/TfOt2-ica-U" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 企画の基礎 2</div>
+                </div>
+                <!-- Video 3 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/mpxFo80-VwU" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 アイデア出し手法</div>
+                </div>
+                <!-- Video 4 (Research) -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/9iPsjDGbyCc?start=358" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 リサーチ実演 (05:58~)
+                    </div>
+                </div>
+            </div>
+
+            <div class="box gemini">
+                <h4 style="margin-top:0;"><i class="fa-solid fa-brain"></i> 実習：AIリサーチ & プロンプト作成</h4>
+                <div style="margin-bottom:20px;">
+                    <p>この実習では、AIを使って「動画の骨組み（台本）」を作るための準備を行います。</p>
+                    <ol style="color:#455a64; line-height:1.8;">
+                        <li><strong>指令プロンプトの作成:</strong><br>
+                            Geminiに以下の指示を出してください。<br>
+                            <code>「TIKTOK台本作成を作るためのプロンプトを作成してください」</code><br>
+                            これに対し、AIが「フック（冒頭）」「本題」「CTA（行動喚起）」などの要素を提案してくるか確認しましょう。
+                        </li>
+                        <li style="margin-top:15px;"><strong>リサーチと企画選定:</strong><br>
+                            TikTokアプリで「恋愛」または「自分の関心テーマ」を検索。<br>
+                            再生数が多い動画の特徴（構成・伝え方・コメント欄の反応）をメモし、ターゲット（誰に届けるか）を明確にします。
+                        </li>
+                    </ol>
+                </div>
+                <div style="text-align:center;">
+                    <a href="https://gemini.google.com/gem/476e01086ab7" target="_blank"
+                        style="background:#4285f4; color:#fff; padding:12px 30px; border-radius:50px; text-decoration:none; font-weight:bold; display:inline-flex; align-items:center; gap:10px; box-shadow:0 4px 15px rgba(66, 133, 244, 0.3);">
+                        <i class="fa-solid fa-rocket"></i> Gemini (GEMS) を起動
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- AFTERNOON SECTION -->
+            <h2><span>02</span> THE FACTORY: Canva一括作成</h2>
+            <p>
+                1本1本手作りするのは、初期段階では非効率です。<br>
+                型（テンプレート）を作り、そこにAIで生成したデータを流し込む。この「量産体制」を構築することで、PDCAを高速で回せるようになります。
+            </p>
+
+            <div class="video-list">
+                <!-- Video 1 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/yUV1JtubFcY" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 一括作成の破壊力</div>
+                </div>
+                <!-- Video 2 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/znzIxjwdIMY" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 時短テクニック</div>
+                </div>
+                <!-- Video 3 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/KnPIyfbBY28" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 デザイン調整のコツ</div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3
+                    style="margin-top:0; border:none; padding:0; justify-content:center; text-align:center; color:#00bcd4;">
+                    <i class="fa-solid fa-layer-group"></i> 実習：Bulk Create (一括作成) 完全フロー
+                </h3>
+                <p style="text-align:center; color:#666; margin-bottom:30px;">この手順通りに進めれば、30本の動画が数分で完成します。</p>
+
+                <ul class="step-list">
+                    <li>
+                        <h4>Gemini & Canva Docで台本データ作成</h4>
+                        <div class="step-desc">
+                            Canvaの「Canvaシート（またはDoc）」を開き、AI（マジック作文）にプロンプトを入力して台本を30本分生成させます。<br>
+                            生成されたデータは必ず目視で確認し、修正してください。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>テンプレートの準備</h4>
+                        <div class="step-desc">
+                            「2月5日実習用フォルダ」から<strong>「DX台本テンプレート」</strong>を開き、「コピーを作成」します。<br>
+                            ファイル名に自分の名前（例: DX台本テンプレート_山田太郎）をつけて保存してください。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>一括作成機能の起動</h4>
+                        <div class="step-desc">
+                            Canva編集画面のサイドバー「アプリ」から<strong>「一括作成 (Bulk Create)」</strong>を検索・選択します。<br>
+                            「データを手動で入力」を選び、先ほど作った30本分の表データを貼り付けます（またはCSVアップロード）。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>データの接続 (Connect Data)</h4>
+                        <div class="step-desc">
+                            デザイン上のテキスト（「フック」「本題」など）を<strong>右クリック</strong>し、「データの接続」を選びます。<br>
+                            それぞれの項目に対応するデータ列を紐付けてください。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>生成と微調整</h4>
+                        <div class="step-desc">
+                            全て接続できたら、<strong>「30点のデザインを作成」</strong>ボタンをクリック。<br>
+                            別ウィンドウで30ページ分のデザインが生成されます。文字数によってはレイアウトが崩れるため、1ページずつ文字の位置やサイズを微調整して完成です。
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="box" style="background:#fff3e0; border:2px solid #ffb74d; text-align:center;">
+                <h4 style="margin:0; color:#ef6c00;"><i class="fa-solid fa-flag-checkered"></i> 今日の目標: 3本アップロード</h4>
+                <p style="margin:10px 0 0;">
+                    作った動画の中から、特に自信のある3本を実際にTikTokにアップロードしましょう。<br>
+                    <strong>目標: 1本でも再生回数が50回を超えれば大成功です！</strong>
+                </p>
+            </div>
+
+            <div class="quiz-area">
+                <div class="quiz-header">
+                    <h2>KNOWLEDGE <span>CHECK</span></h2>
+                    <p style="color:#636e72;">Vol.1 Day 3 理解度テスト / 全5問</p>
+                </div>
+                <div id="quiz-vol01-3">
+                    <div style="text-align:center;">Loading Quiz System...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="text-align:center; padding-top:40px; color:#b2bec3; font-size:0.8rem;">
+        © 2026 DX Training Program / Feb Course
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
