@@ -28,6 +28,53 @@
             /* Blue */
             --lv3: #6c5ce7;
             /* Purple */
+            --lv4: #e74c3c;
+            /* Red (Debug) */
+        }
+
+        /* Debug Section Specifics */
+        .debug-section {
+            border: 2px dashed var(--lv4);
+            background: #fff5f5;
+        }
+
+        .debug-intro {
+            background: #ffcccc;
+            color: #c0392b;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .debug-intro i {
+            font-size: 2rem;
+        }
+
+        details.lv-debug {
+            border-left-color: var(--lv4);
+        }
+
+        .debug-summary {
+            color: var(--lv4);
+        }
+
+        .debug-summary::after {
+            color: var(--lv4);
+        }
+
+        .bug-badge {
+            background: var(--lv4);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            font-family: "Teko";
+            letter-spacing: 1px;
         }
 
         body {
@@ -478,6 +525,18 @@
             color: var(--lv3);
         }
 
+        .diag-btn.lv4 {
+            border-left-color: var(--lv4);
+        }
+
+        .diag-btn.lv4:hover {
+            background: linear-gradient(to right, #ffebee, #fff);
+        }
+
+        .diag-btn.lv4 i {
+            color: var(--lv4);
+        }
+
         .lvl-badge {
             font-size: 0.7rem;
             color: #fff;
@@ -590,6 +649,14 @@
                             <span class="lvl-badge">LEVEL 3: PM / Director</span>
                             <span>戦略と「UX ROI」を知る</span>
                             <span class="btn-desc">ビジネス価値と開発対効果の視点</span>
+                        </div>
+                    </button>
+                    <button class="diag-btn lv4" onclick="setMode('lv4')">
+                        <i class="fa-solid fa-bug"></i>
+                        <div class="btn-text">
+                            <span class="lvl-badge" style="background:#e74c3c;">LEVEL 4: Deep Dive</span>
+                            <span>失敗から学ぶ「Webの仕組み」</span>
+                            <span class="btn-desc">エンジニアの"やらかし"から学ぶ</span>
                         </div>
                     </button>
                 </div>
@@ -915,6 +982,81 @@
                     <p>「人間はミスをする。だからシステムがカバーする」という、堅牢な運用設計の一例です。</p>
                 </div>
             </details>
+            </details>
+        </section>
+
+        <!-- SECTION 7: DEBUG STORIES (NEW) -->
+        <section class="debug-section">
+            <h2><i class="fa-solid fa-bug"></i> 7. Debug Stories: エンジニアの「やらかし」図鑑</h2>
+
+            <div class="debug-intro">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <div>
+                    <strong>「見えているのに、動かない？」</strong><br>
+                    プログラミングの世界には、人間の目には同じに見えても、ブラウザにとっては「別世界」という落とし穴がたくさんあります。<br>
+                    ここでは、実際にこのサイト開発中に発生した<strong>「恥ずかしい失敗（バグ）」</strong>を供養しながら、Webの仕組みを学びましょう。
+                </div>
+            </div>
+
+            <!-- BUG 01 -->
+            <details class="lv-debug" open>
+                <summary class="debug-summary">
+                    <span class="bug-badge">FAILURE #01</span>
+                    <strong>「透明な壁」事件 (The Invisible Wall)</strong>
+                </summary>
+                <div class="details-content">
+                    <h4 style="margin-top:0; color:#c0392b;">🚨 事件発生</h4>
+                    <p>「Day 3のページを作ったのに、トップページのLATESTボタンが古い（Day 2）まま更新されない！クリックしても開かない！」という不具合が発生。</p>
+
+                    <h4 style="color:#2980b9;">🕵️‍♂️ 原因：divタグとaタグの違い</h4>
+                    <p>デザイン上は全く同じ「四角いお弁当箱」に見えますが、プログラム的には<strong>「ただの箱（div）」</strong>で作ってしまっていました。</p>
+
+                    <div class="code-block" style="border-left-color:#e74c3c;">
+                        <span style="color:#e74c3c; font-weight:bold;">[❌ Mistake]</span> ただの箱。クリックしても何も起きない。<br>
+                        <code>&lt;div class="item"&gt;DAY 03&lt;/div&gt;</code>
+                        <br><br>
+                        <span style="color:#27ae60; font-weight:bold;">[⭕ Correct]</span> リンク（Anchor）。場所へ飛ぶ機能がある。<br>
+                        <code>&lt;a href="day3.html" class="item"&gt;DAY 03&lt;/a&gt;</code>
+                    </div>
+
+                    <p><strong>【教訓】</strong><br>
+                        ブラウザは見た目（CSS）ではなく、<strong>タグの意味（HTML）</strong>で判断します。<br>
+                        「自動更新ロボット」くんは、<code>&lt;a&gt;</code>タグ（リンク）しか探さないように命令されていたため、
+                        <code>&lt;div&gt;</code>で作られたDay 3を「中身のないただの飾り」だと思って無視していたのです。
+                    </p>
+                </div>
+            </details>
+
+            <!-- BUG 02 -->
+            <details class="lv-debug" open>
+                <summary class="debug-summary">
+                    <span class="bug-badge">FAILURE #02</span>
+                    <strong>「言葉が通じない」事件 (The Dialect Mismatch)</strong>
+                </summary>
+                <div class="details-content">
+                    <h4 style="margin-top:0; color:#c0392b;">🚨 事件発生</h4>
+                    <p>「Day 3のクイズが表示されず、Loading...のまま固まる」という不具合が発生。<br>
+                        プログラムはエラーを吐かずにただ沈黙するという、一番困るパターンです。</p>
+
+                    <h4 style="color:#2980b9;">🕵️‍♂️ 原因：辞書型(Object) vs 配列(Array)</h4>
+                    <p>クイズプログラムは「Aは〜、Bは〜」という名前付きリスト（辞書型/Object）を期待して待っていたのに、
+                        私が渡したのは「[0番目, 1番目...]」というただの順番リスト（配列/Array）でした。</p>
+
+                    <div class="code-block" style="border-left-color:#e74c3c;">
+                        <span style="color:#e74c3c; font-weight:bold;">[❌ Mistake] Array（配列）</span><br>
+                        <code>options: ["回答A", "回答B"...]</code><br>
+                        <span style="font-size:0.85rem; color:#666;">（プログラム：「えっ、"A"という名前のデータがないぞ？読めない…プツン」）</span>
+                        <br><br>
+                        <span style="color:#27ae60; font-weight:bold;">[⭕ Correct] Object（オブジェクト）</span><br>
+                        <code>options: { A: "回答A", B: "回答B"... }</code><br>
+                        <span style="font-size:0.85rem; color:#666;">（プログラム：「"A"のデータはこれだね！OK！」）</span>
+                    </div>
+
+                    <p><strong>【教訓】</strong><br>
+                        人間なら「まあ、上からA,B,Cのことだな」と空気を読んでくれますが、プログラムは<strong>「言われた形式（型）」と1ミリでも違うと会話を拒否</strong>します。<br>
+                        データの「型（Type）」を合わせることは、プログラムと会話するための最低限の礼儀なのです。</p>
+                </div>
+            </details>
         </section>
 
         <div style="text-align:center;">
@@ -962,6 +1104,17 @@
             } else if (mode === 'lv3') {
                 document.querySelectorAll('.lv-arch').forEach(d => d.open = true);
                 toast.textContent = "♟️ Mode: LV.3 PM/Director";
+            } else if (mode === 'lv4') {
+                const debugSection = document.querySelector('.debug-section');
+                document.querySelectorAll('.lv-debug').forEach(d => d.open = true);
+                toast.textContent = "🐛 Mode: LV.4 Debugger";
+
+                // Auto Scroll to Debug Section
+                if (debugSection) {
+                    setTimeout(() => {
+                        debugSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300); // Slight delay to allow modal close transition
+                }
             }
 
             toast.classList.add('show');
