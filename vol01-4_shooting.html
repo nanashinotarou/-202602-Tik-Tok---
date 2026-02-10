@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vol.1 Day 4: Shooting & Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #f0f4f8;
+            --bg-card: #ffffff;
+            --text-main: #2d3436;
+            --text-sub: #636e72;
+            --accent-cyan: #00bcd4;
+            --accent-pink: #e91e63;
+            --gemini-blue: #4285f4;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: "Noto Sans JP", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 2.0;
+            margin: 0;
+            padding: 40px 20px;
+            background-image: radial-gradient(#dfe9f3 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            color: #fff;
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-pink));
+        }
+
+        .tag-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: "Teko", sans-serif;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: "Teko", sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin: 0;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #b2bec3;
+        }
+
+        /* --- CONTENT BODY --- */
+        .content {
+            padding: 60px 40px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin: 80px 0 40px;
+            font-family: "Teko", sans-serif;
+            color: #000;
+            border-bottom: 3px solid #eee;
+            padding-bottom: 10px;
+            line-height: 1;
+        }
+
+        h2 span {
+            color: var(--accent-cyan);
+            margin-right: 15px;
+            font-size: 3rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            border-left: 6px solid var(--accent-pink);
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 2em;
+            text-align: justify;
+            color: #455a64;
+        }
+
+        strong {
+            background: linear-gradient(transparent 60%, #fff9c4 60%);
+            padding: 0 4px;
+            font-weight: 900;
+            color: #2d3436;
+        }
+
+        /* --- SPECIAL BOXES --- */
+        .box {
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            position: relative;
+            background: #fff;
+            border: 1px solid #eee;
+        }
+
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Step Box */
+        .step-box {
+            background: #fff;
+            border: 2px dashed #00bcd4;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 25px;
+        }
+
+        .step-list li::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--accent-cyan);
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            font-family: "Teko", sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .step-list h4 {
+            margin: 0 0 5px 0;
+            color: #2d3436;
+            font-size: 1.2rem;
+        }
+
+        .step-desc {
+            font-size: 0.95rem;
+            color: #636e72;
+        }
+
+        /* Compositions Grid */
+        .comp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .comp-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #eee;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        /* Quiz */
+        .quiz-area {
+            margin-top: 80px;
+            padding: 40px;
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .quiz-header h2 {
+            border: none;
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .content {
+                padding: 40px 20px;
+            }
+
+            .video-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="hero">
+            <span class="tag-pill">Vol.1 Day 4</span>
+            <h1>SHOOTING & TOOLS</h1>
+            <div class="hero-sub">世界を切り取る「レンズ」と、時間を操る「編集」の魔法</div>
+        </div>
+
+        <div class="content">
+
+            <p style="font-size:1.2rem; font-weight:bold; color:#000; line-height:1.6;">
+                Day 4は「アナログ」と「デジタル」の融合です。<br>
+                前半はスマホのカメラを使って、プロのような構図で世界を切り取る技術。<br>
+                後半はPCとスマホを連携させ、AIで作った素材を効率よく動画化する最新ワークフローを習得します。
+            </p>
+
+            <!-- MORNING SECTION -->
+            <h2><span>01</span> THE LENS: 撮影テクニック & 7つの構図</h2>
+            <p>
+                「何を撮るか」と同じくらい「どう撮るか」が重要です。<br>
+                視聴者の視線を自然に誘導する「構図」の魔法を学び、いつもの風景をシネマティックに変えましょう。
+            </p>
+
+            <div class="video-list">
+                <!-- Video 1 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/uxBsJQ90AHw" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 撮影の基本</div>
+                </div>
+                <!-- Video 2 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/skbggWhla8s" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 スマホカメラ設定</div>
+                </div>
+                <!-- Video 3 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/XGvqVsGhfcw" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 カメラワーク</div>
+                </div>
+            </div>
+
+            <div class="box" style="border: 2px solid #00bcd4;">
+                <h4 style="margin-top:0; color:#00bcd4;"><i class="fa-solid fa-camera"></i> 実習：7つの構図を探せ</h4>
+                <p>以下の7つの構図を意識して、身の回りのものを撮影してみましょう。これだけで写真のクオリティが劇的に変わります。</p>
+                <div class="comp-grid">
+                    <div class="comp-card">S字構図</div>
+                    <div class="comp-card">リーディングライン</div>
+                    <div class="comp-card">三分割法</div>
+                    <div class="comp-card">シンメトリー</div>
+                    <div class="comp-card">日の丸構図</div>
+                    <div class="comp-card">パターン構図</div>
+                    <div class="comp-card">額縁構図</div>
+                </div>
+            </div>
+
+
+            <!-- AFTERNOON SECTION -->
+            <h2><span>02</span> THE EDITOR: AI x CapCut Workflow</h2>
+            <p>
+                PCの作業効率と、スマホの手軽さをいいとこ取りします。<br>
+                CapCutの「クラウド連携（Space）」を使えば、デバイスの壁を超えてシームレスに編集作業が進められます。
+            </p>
+
+            <div class="video-list">
+                <!-- Video 1 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/SCUfIaYelQY" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 CapCut 基礎</div>
+                </div>
+                <!-- Video 2 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/e-LcaeS-_Eg" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 編集テクニック</div>
+                </div>
+                <!-- Video 3 -->
+                <div style="text-align:center;">
+                    <iframe src="https://www.youtube.com/embed/yrws5phjqz8" allowfullscreen></iframe>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 実習メイン解説</div>
+                </div>
+            </div>
+
+            <div class="step-box">
+                <h3
+                    style="margin-top:0; border:none; padding:0; justify-content:center; text-align:center; color:#e91e63;">
+                    <i class="fa-solid fa-mobile-screen-button"></i> 実習：PCとスマホの連携フロー
+                </h3>
+                <p style="text-align:center; color:#666; margin-bottom:30px;">この手順で、PCで作った素材をスマホに取り込みます。</p>
+
+                <ul class="step-list">
+                    <li>
+                        <h4>CapCutアカウント作成 (Unity)</h4>
+                        <div class="step-desc">
+                            PCブラウザ版とスマホアプリ版の両方で、<strong>「同じアカウント（Google/TikTok連携）」</strong>でログインしてください。<br>
+                            ここが異なるとデータ連携ができません。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>AIで素材準備 (Preparation)</h4>
+                        <div class="step-desc">
+                            GeminiやChatGPTで台本（300文字程度）を作成。<br>
+                            画像生成AIで背景画像を生成し、Canva等で動画サイズ(9:16)に調整してPCに保存します。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>クラウド連携 (Space)</h4>
+                        <div class="step-desc">
+                            PC版CapCutの「スペース (Space)」に、準備した素材（台本テキスト、画像、動画）をアップロードします。<br>
+                            アップロードが完了したら、スマホアプリ版CapCutを開き、「スペース」タブを確認。同期されていれば成功です。
+                        </div>
+                    </li>
+                    <li>
+                        <h4>音声読み上げと編集 (Editing)</h4>
+                        <div class="step-desc">
+                            スマホで台本テキストをコピーし、「テキスト読み上げ」機能を使ってナレーション化します。<br>
+                            音声に合わせて画像を配置し、エフェクトをかけて完成させましょう。
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="quiz-area">
+                <div class="quiz-header">
+                    <h2>KNOWLEDGE <span>CHECK</span></h2>
+                    <p style="color:#636e72;">Vol.1 Day 4 理解度テスト / 全5問</p>
+                </div>
+                <div id="quiz-vol01-4">
+                    <div style="text-align:center;">Loading Quiz System...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="text-align:center; padding-top:40px; color:#b2bec3; font-size:0.8rem;">
+        © 2026 DX Training Program / Feb Course
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
