@@ -144,6 +144,26 @@
             border: 1px solid #eee;
         }
 
+        .learning-objectives {
+            background: #e3f2fd;
+            border-left: 5px solid #4285f4;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        .learning-objectives h4 {
+            margin-top: 0;
+            color: #1565c0;
+            font-size: 1.1rem;
+        }
+
+        .learning-objectives ul {
+            margin: 0;
+            padding-left: 20px;
+            color: #455a64;
+        }
+
         .video-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -179,8 +199,8 @@
 
         .step-list li {
             position: relative;
-            padding-left: 50px;
-            margin-bottom: 25px;
+            padding-left: 60px;
+            margin-bottom: 30px;
         }
 
         .step-list li::before {
@@ -189,45 +209,76 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             background: var(--accent-cyan);
             color: #fff;
             border-radius: 50%;
             text-align: center;
-            line-height: 35px;
+            line-height: 40px;
             font-weight: bold;
             font-family: "Teko", sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
         }
 
         .step-list h4 {
+            margin: 0 0 10px 0;
+            color: #2d3436;
+            font-size: 1.3rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .step-desc {
+            font-size: 1rem;
+            color: #636e72;
+        }
+
+        /* Detailed Composition Cards */
+        .comp-detailed {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .comp-item {
+            display: flex;
+            gap: 20px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #00bcd4;
+        }
+
+        .comp-icon {
+            font-size: 2rem;
+            color: #00bcd4;
+            min-width: 50px;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        .comp-content h4 {
             margin: 0 0 5px 0;
             color: #2d3436;
             font-size: 1.2rem;
         }
 
-        .step-desc {
+        .comp-content p {
+            margin: 0;
             font-size: 0.95rem;
             color: #636e72;
         }
 
-        /* Compositions Grid */
-        .comp-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .comp-card {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #eee;
+        .why-use {
+            font-size: 0.85rem;
+            background: #e0f7fa;
+            color: #006064;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-weight: bold;
-            color: #2d3436;
+            display: inline-block;
+            margin-top: 5px;
         }
 
         /* Quiz */
@@ -266,6 +317,16 @@
             .video-list {
                 grid-template-columns: 1fr;
             }
+
+            .comp-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .comp-icon {
+                text-align: left;
+                padding-top: 0;
+            }
         }
     </style>
 </head>
@@ -281,111 +342,183 @@
 
         <div class="content">
 
+            <div class="learning-objectives">
+                <h4><i class="fa-solid fa-check-double"></i> 今日の学習目標 (Learning Objectives)</h4>
+                <ul>
+                    <li>スマホカメラの「グリッド線」を表示し、意識的に構図を作れるようになる。</li>
+                    <li>7つの基本構図（三分割法、日の丸構図など）の違いと使い所を理解する。</li>
+                    <li>PCでの素材準備とスマホでの編集をシームレスにつなぐ「クラウド連携」ワークフローを習得する。</li>
+                </ul>
+            </div>
+
             <p style="font-size:1.2rem; font-weight:bold; color:#000; line-height:1.6;">
-                Day 4は「アナログ」と「デジタル」の融合です。<br>
-                前半はスマホのカメラを使って、プロのような構図で世界を切り取る技術。<br>
-                後半はPCとスマホを連携させ、AIで作った素材を効率よく動画化する最新ワークフローを習得します。
+                「センスがないから良い動画が撮れない」と思っていませんか？<br>
+                プロとアマチュアの違いは、センスではなく「知識（セオリー／型）」を知っているかどうかだけです。<br>
+                Day 4では、映像を劇的に変える「型」と、プロの時短術である「ツール連携」を徹底解説します。
             </p>
 
             <!-- MORNING SECTION -->
-            <h2><span>01</span> THE LENS: 撮影テクニック & 7つの構図</h2>
+            <h2><span>01</span> THE LENS: 7つの構図を武器にする</h2>
             <p>
-                「何を撮るか」と同じくらい「どう撮るか」が重要です。<br>
-                視聴者の視線を自然に誘導する「構図」の魔法を学び、いつもの風景をシネマティックに変えましょう。
+                構図とは、<strong>「視聴者の視線をコントロールする技術」</strong>です。<br>
+                ただ漠然と撮るのではなく、意図を持って被写体を配置することで、映像に「意味」が生まれます。
             </p>
 
             <div class="video-list">
                 <!-- Video 1 -->
                 <div style="text-align:center;">
                     <iframe src="https://www.youtube.com/embed/uxBsJQ90AHw" allowfullscreen></iframe>
-                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 撮影の基本</div>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 撮影の基本 (まずこれを見て！)
+                    </div>
                 </div>
                 <!-- Video 2 -->
                 <div style="text-align:center;">
                     <iframe src="https://www.youtube.com/embed/skbggWhla8s" allowfullscreen></iframe>
-                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 スマホカメラ設定</div>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 グリッド線の出し方</div>
                 </div>
                 <!-- Video 3 -->
                 <div style="text-align:center;">
                     <iframe src="https://www.youtube.com/embed/XGvqVsGhfcw" allowfullscreen></iframe>
-                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 カメラワーク</div>
+                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 実践カメラワーク</div>
                 </div>
             </div>
 
-            <div class="box" style="border: 2px solid #00bcd4;">
-                <h4 style="margin-top:0; color:#00bcd4;"><i class="fa-solid fa-camera"></i> 実習：7つの構図を探せ</h4>
-                <p>以下の7つの構図を意識して、身の回りのものを撮影してみましょう。これだけで写真のクオリティが劇的に変わります。</p>
-                <div class="comp-grid">
-                    <div class="comp-card">S字構図</div>
-                    <div class="comp-card">リーディングライン</div>
-                    <div class="comp-card">三分割法</div>
-                    <div class="comp-card">シンメトリー</div>
-                    <div class="comp-card">日の丸構図</div>
-                    <div class="comp-card">パターン構図</div>
-                    <div class="comp-card">額縁構図</div>
+            <h3 style="color:#2d3436;">基本の7構図 (Composition List)</h3>
+            <div class="comp-detailed">
+                <!-- 1 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-solid fa-border-all"></i></div>
+                    <div class="comp-content">
+                        <h4>1. 三分割法 (Rule of Thirds)</h4>
+                        <p>画面を縦横3等分し、その線や交点に被写体を配置する方法。</p>
+                        <div class="why-use">効果：バランス、安定感、余白の美しさ</div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-regular fa-circle-dot"></i></div>
+                    <div class="comp-content">
+                        <h4>2. 日の丸構図 (Center Composition)</h4>
+                        <p>被写体を画面のど真ん中に配置する方法。</p>
+                        <div class="why-use">効果：インパクト、主役の強調、シンプルさ</div>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-solid fa-lines-leaning"></i></div>
+                    <div class="comp-content">
+                        <h4>3. リーディングライン (Leading Lines)</h4>
+                        <p>道路、手すり、廊下などの「線」を使って、視線を奥や被写体へ誘導する方法。</p>
+                        <div class="why-use">効果：奥行き、視線誘導、ストーリー性</div>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-solid fa-yin-yang"></i></div>
+                    <div class="comp-content">
+                        <h4>4. シンメトリー (Symmetry)</h4>
+                        <p>左右対称、または上下対称（リフレクション）になるように画面を作る方法。</p>
+                        <div class="why-use">効果：幾何学的な美しさ、静寂、威厳</div>
+                    </div>
+                </div>
+                <!-- 5 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-solid fa-bezier-curve"></i></div>
+                    <div class="comp-content">
+                        <h4>5. S字構図 (S-Curve)</h4>
+                        <p>川や道などの「S字」のラインを取り入れる方法。</p>
+                        <div class="why-use">効果：リズム感、柔らかさ、優雅さ</div>
+                    </div>
+                </div>
+                <!-- 6 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-solid fa-table-cells"></i></div>
+                    <div class="comp-content">
+                        <h4>6. パターン構図 (Pattern)</h4>
+                        <p>同じ形や色が規則的に並んでいる様子を写す方法。</p>
+                        <div class="why-use">効果：統一感、抽象的な面白さ</div>
+                    </div>
+                </div>
+                <!-- 7 -->
+                <div class="comp-item">
+                    <div class="comp-icon"><i class="fa-regular fa-square"></i></div>
+                    <div class="comp-content">
+                        <h4>7. 額縁構図 (Frame within a Frame)</h4>
+                        <p>窓枠、トンネル、木々の隙間などで被写体を囲む方法。</p>
+                        <div class="why-use">効果：視線集中、のぞき見感、立体感</div>
+                    </div>
                 </div>
             </div>
 
 
             <!-- AFTERNOON SECTION -->
-            <h2><span>02</span> THE EDITOR: AI x CapCut Workflow</h2>
+            <h2><span>02</span> THE EDITOR: 最適解ワークフロー</h2>
             <p>
-                PCの作業効率と、スマホの手軽さをいいとこ取りします。<br>
-                CapCutの「クラウド連携（Space）」を使えば、デバイスの壁を超えてシームレスに編集作業が進められます。
+                「スマホだけで全部やる」のは疲れ、「PCだけで全部やる」のは素材集めが大変です。<br>
+                プロは<strong>「PCで素材準備 → クラウドで共有 → スマホで編集・投稿」</strong>という一番おいしい所取りのワークフローを使っています。
             </p>
 
-            <div class="video-list">
-                <!-- Video 1 -->
-                <div style="text-align:center;">
-                    <iframe src="https://www.youtube.com/embed/SCUfIaYelQY" allowfullscreen></iframe>
-                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 CapCut 基礎</div>
-                </div>
-                <!-- Video 2 -->
-                <div style="text-align:center;">
-                    <iframe src="https://www.youtube.com/embed/e-LcaeS-_Eg" allowfullscreen></iframe>
-                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 編集テクニック</div>
-                </div>
-                <!-- Video 3 -->
-                <div style="text-align:center;">
-                    <iframe src="https://www.youtube.com/embed/yrws5phjqz8" allowfullscreen></iframe>
-                    <div style="font-size:0.9rem; font-weight:bold; margin-top:5px; color:#636e72;">🎥 実習メイン解説</div>
-                </div>
+            <div class="box gemini" style="background:#e8eaf6; border-color:#3949ab;">
+                <h4 style="margin-top:0; color:#3949ab;">なぜこのフローなのか？</h4>
+                <ul style="margin-bottom:0;">
+                    <li><strong>PCの強み:</strong> 検索が速い、AI（Gemini/ChatGPT）での台本作成が楽、画像素材の管理がしやすい。</li>
+                    <li><strong>スマホの強み:</strong> CapCutアプリの機能が最強（PC版よりテンプレートやエフェクトが豊富）、TikTokへのアップロードが直結。</li>
+                    <li><strong>結論:</strong> データ連携（Space）さえできれば、生産性は倍になります。</li>
+                </ul>
             </div>
 
             <div class="step-box">
                 <h3
                     style="margin-top:0; border:none; padding:0; justify-content:center; text-align:center; color:#e91e63;">
-                    <i class="fa-solid fa-mobile-screen-button"></i> 実習：PCとスマホの連携フロー
+                    <i class="fa-solid fa-sync"></i> 完全図解：PC⇄スマホ連携フロー
                 </h3>
-                <p style="text-align:center; color:#666; margin-bottom:30px;">この手順で、PCで作った素材をスマホに取り込みます。</p>
+                <p style="text-align:center; color:#666; margin-bottom:40px;">この手順通りにやれば、絶対に迷いません。</p>
 
                 <ul class="step-list">
                     <li>
-                        <h4>CapCutアカウント作成 (Unity)</h4>
+                        <h4>1. アカウントの統一 (Identity Check)</h4>
                         <div class="step-desc">
-                            PCブラウザ版とスマホアプリ版の両方で、<strong>「同じアカウント（Google/TikTok連携）」</strong>でログインしてください。<br>
-                            ここが異なるとデータ連携ができません。
+                            <p>これが全ての前提です。別々のアカウントになっていないか確認してください。</p>
+                            <ul>
+                                <li><strong>PC:</strong> ブラウザで <a href="https://www.capcut.com/"
+                                        target="_blank">capcut.com</a> にアクセスし、Googleアカウント等でログイン。</li>
+                                <li><strong>スマホ:</strong> CapCutアプリを開き、右下の「マイページ」から<strong>上記と全く同じアカウント</strong>でログイン。
+                                </li>
+                            </ul>
                         </div>
                     </li>
                     <li>
-                        <h4>AIで素材準備 (Preparation)</h4>
+                        <h4>2. PCで素材を「スペース」にアップ (Upload)</h4>
                         <div class="step-desc">
-                            GeminiやChatGPTで台本（300文字程度）を作成。<br>
-                            画像生成AIで背景画像を生成し、Canva等で動画サイズ(9:16)に調整してPCに保存します。
+                            <p>PCで準備した台本（テキストファイルやメモ）や、画像・動画などの素材をクラウドにあげます。</p>
+                            <ol>
+                                <li>PCのCapCutホーム画面左側の<strong>「スペース (Space)」</strong>をクリック。</li>
+                                <li>「アップロード」ボタンを押し、PC内にある素材ファイルを選択。</li>
+                                <li>アップロード完了のバーが出るまで待つ。</li>
+                            </ol>
                         </div>
                     </li>
                     <li>
-                        <h4>クラウド連携 (Space)</h4>
+                        <h4>3. スマホで素材を受け取る (Sync)</h4>
                         <div class="step-desc">
-                            PC版CapCutの「スペース (Space)」に、準備した素材（台本テキスト、画像、動画）をアップロードします。<br>
-                            アップロードが完了したら、スマホアプリ版CapCutを開き、「スペース」タブを確認。同期されていれば成功です。
+                            <p>ここがポイントです。スマホアプリのどこにあるか迷いやすいです。</p>
+                            <ol>
+                                <li>スマホでCapCutアプリを開く。</li>
+                                <li>下部メニューの「編集」タブを選択。</li>
+                                <li>画面上部（またはプロジェクト一覧の近く）にある<strong>「スペース」</strong>という項目、またはクラウドアイコンをタップ。</li>
+                                <li>PCで上げたファイルが表示されていれば成功！ここからダウンロードして編集に使います。</li>
+                            </ol>
                         </div>
                     </li>
                     <li>
-                        <h4>音声読み上げと編集 (Editing)</h4>
+                        <h4>4. スマホで編集 & 投稿 (Edit & Post)</h4>
                         <div class="step-desc">
-                            スマホで台本テキストをコピーし、「テキスト読み上げ」機能を使ってナレーション化します。<br>
-                            音声に合わせて画像を配置し、エフェクトをかけて完成させましょう。
+                            <p>素材がスマホに入ればこっちのものです。</p>
+                            <ul>
+                                <li><strong>テキスト読み上げ:</strong> コピーした台本を「テキスト」機能で貼り付け → 読み上げ機能でナレーション化。</li>
+                                <li><strong>自動キャプション:</strong> ナレーションから自動で字幕を生成。</li>
+                                <li>完成したら右上の「エクスポート」→「TikTokでシェア」で一発投稿！</li>
+                            </ul>
                         </div>
                     </li>
                 </ul>
