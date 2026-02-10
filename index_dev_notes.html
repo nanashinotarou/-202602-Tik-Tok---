@@ -1120,6 +1120,26 @@
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 4000);
         }
+
+        // Auto-handle "Recipe" links (Direct Access)
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash) {
+                // If accessing via #hash (e.g. #day2), skip the modal
+                // and default to "Engineer Mode" (Show Code)
+                setMode('lv2');
+
+                // Show a welcome toast
+                const toast = document.getElementById('toast');
+                toast.textContent = "🚀 Recipe Loaded: Engineer Mode";
+                toast.classList.add('show');
+
+                // Force scroll to target after a slight delay (to ensure layout settles)
+                setTimeout(() => {
+                    const target = document.querySelector(window.location.hash);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 500);
+            }
+        });
     </script>
 </body>
 
