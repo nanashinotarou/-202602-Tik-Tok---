@@ -9,6 +9,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Teko:wght@500;700&display=swap"
         rel="stylesheet">
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
     <style>
         :root {
             --bg-body: #f0f4f8;
@@ -186,7 +190,7 @@
         .step-box {
             background: #fff;
             border: 2px dashed #00bcd4;
-            padding: 30px;
+            padding: 20px;
             border-radius: 12px;
             margin-top: 40px;
         }
@@ -194,38 +198,27 @@
         .step-list {
             list-style: none;
             padding: 0;
-            counter-reset: step;
         }
 
         .step-list li {
             position: relative;
-            padding-left: 60px;
             margin-bottom: 30px;
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #eee;
         }
 
+        /* Remove CSS counters */
         .step-list li::before {
-            counter-increment: step;
-            content: counter(step);
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 40px;
-            height: 40px;
-            background: var(--accent-cyan);
-            color: #fff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            font-weight: bold;
-            font-family: "Teko", sans-serif;
-            font-size: 1.4rem;
+            display: none;
         }
 
         .step-list h4 {
             margin: 0 0 10px 0;
             color: #2d3436;
             font-size: 1.3rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #ddd;
             padding-bottom: 5px;
         }
 
@@ -328,6 +321,63 @@
                 padding-top: 0;
             }
         }
+
+        /* Textbook Styles */
+        .step-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .step-card h4 {
+            margin-top: 0;
+            color: #2d3436;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .code-box {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .code-box::before {
+            content: "PROMPT (Copy)";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #00bcd4;
+            color: #fff;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .mermaid {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 
@@ -400,8 +450,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>1. 三分割法 (Rule of Thirds)</h4>
-                        <p>画面を縦横3等分し、その線や交点に被写体を配置する方法。</p>
-                        <div class="why-use">効果：バランス、安定感、余白の美しさ</div>
+                        <p><strong>【王道】</strong> 画面を縦横3等分し、その交点に被写体を配置する手法です。</p>
+                        <div class="why-use">効果：最もバランスが良く、安定感が出ます。迷ったらまずはこれ。</div>
                     </div>
                 </div>
                 <!-- 2 -->
@@ -419,8 +469,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>2. 日の丸構図 (Center Composition)</h4>
-                        <p>被写体を画面のど真ん中に配置する方法。</p>
-                        <div class="why-use">効果：インパクト、主役の強調、シンプルさ</div>
+                        <p><strong>【強調】</strong> 被写体を画面のど真ん中に配置する手法です。</p>
+                        <div class="why-use">効果：シンプルで強いインパクト。被写体の力が弱いと退屈になるので注意。</div>
                     </div>
                 </div>
                 <!-- 3 -->
@@ -436,8 +486,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>3. リーディングライン (Leading Lines)</h4>
-                        <p>道路、手すり、廊下などの「線」を使って、視線を奥や被写体へ誘導する方法。</p>
-                        <div class="why-use">効果：奥行き、視線誘導、ストーリー性</div>
+                        <p><strong>【誘導】</strong> 道路、手すり、廊下などの「線」を使って、視線を奥へ誘導します。</p>
+                        <div class="why-use">効果：写真に「奥行き」と「ストーリー性」が生まれます。</div>
                     </div>
                 </div>
                 <!-- 4 -->
@@ -454,8 +504,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>4. シンメトリー (Symmetry)</h4>
-                        <p>左右対称、または上下対称（リフレクション）になるように画面を作る方法。</p>
-                        <div class="why-use">効果：幾何学的な美しさ、静寂、威厳</div>
+                        <p><strong>【美学】</strong> 左右対称、または上下対称（リフレクション）になるように撮ります。</p>
+                        <div class="why-use">効果：幾何学的な美しさ、静寂、威厳を表現できます。</div>
                     </div>
                 </div>
                 <!-- 5 -->
@@ -469,8 +519,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>5. S字構図 (S-Curve)</h4>
-                        <p>川や道などの「S字」のラインを取り入れる方法。</p>
-                        <div class="why-use">効果：リズム感、柔らかさ、優雅さ</div>
+                        <p><strong>【優雅】</strong> 川や道などの「S字」のラインを取り入れます。</p>
+                        <div class="why-use">効果：リズム感、柔らかさ、優雅な流れを表現します。</div>
                     </div>
                 </div>
                 <!-- 6 -->
@@ -488,8 +538,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>6. パターン構図 (Pattern)</h4>
-                        <p>同じ形や色が規則的に並んでいる様子を写す方法。</p>
-                        <div class="why-use">効果：統一感、抽象的な面白さ</div>
+                        <p><strong>【統一】</strong> 同じ形や色が規則的に並んでいる様子（窓、商品棚など）を撮ります。</p>
+                        <div class="why-use">効果：画面全体に統一感と、抽象的な面白さを生みます。</div>
                     </div>
                 </div>
                 <!-- 7 -->
@@ -504,8 +554,8 @@
                     </div>
                     <div class="comp-content">
                         <h4>7. 額縁構図 (Frame within a Frame)</h4>
-                        <p>窓枠、トンネル、木々の隙間などで被写体を囲む方法。</p>
-                        <div class="why-use">効果：視線集中、のぞき見感、立体感</div>
+                        <p><strong>【没入】</strong> 窓枠、トンネル、木々の隙間などの「枠」越しに奥を撮ります。</p>
+                        <div class="why-use">効果：視線を中心へ集中させ、「のぞき見」しているような臨場感を出します。</div>
                     </div>
                 </div>
             </div>
@@ -518,70 +568,120 @@
                 プロは<strong>「PCで素材準備 → クラウドで共有 → スマホで編集・投稿」</strong>という一番おいしい所取りのワークフローを使っています。
             </p>
 
+            <!-- Workflow Comparison -->
             <div class="box gemini" style="background:#e8eaf6; border-color:#3949ab;">
-                <h4 style="margin-top:0; color:#3949ab;">なぜこのフローなのか？</h4>
-                <ul style="margin-bottom:0;">
-                    <li><strong>PCの強み:</strong> 検索が速い、AI（Gemini/ChatGPT）での台本作成が楽、画像素材の管理がしやすい。</li>
-                    <li><strong>スマホの強み:</strong> CapCutアプリの機能が最強（PC版よりテンプレートやエフェクトが豊富）、TikTokへのアップロードが直結。</li>
-                    <li><strong>結論:</strong> データ連携（Space）さえできれば、生産性は倍になります。</li>
-                </ul>
+                <h4 style="margin-top:0; color:#3949ab; text-align:center;">
+                    <i class="fa-solid fa-scale-balanced"></i> なぜPCとスマホを使い分けるのか？
+                </h4>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; text-align:center;">
+                    <div style="background:rgba(255,255,255,0.7); padding:15px; border-radius:8px;">
+                        <h5 style="margin:0 0 10px; color:#1565c0;"><i class="fa-solid fa-desktop"></i> PCの役割</h5>
+                        <p style="font-size:0.9rem; margin:0;">
+                            <strong>「素材作り」に特化</strong><br>
+                            AIへの指示出し(タイピング)や、画像の検索・保存はPCの方が圧倒的に速い。
+                        </p>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.7); padding:15px; border-radius:8px;">
+                        <h5 style="margin:0 0 10px; color:#c2185b;"><i class="fa-solid fa-mobile-screen"></i> スマホの役割
+                        </h5>
+                        <p style="font-size:0.9rem; margin:0;">
+                            <strong>「編集と投稿」に特化</strong><br>
+                            CapCutアプリのエフェクト機能は最強。TikTok連携もスマホがスムーズ。
+                        </p>
+                    </div>
+                </div>
+                <p style="text-align:center; font-weight:bold; margin-top:15px; color:#3949ab;">
+                    結論: Spaceでデータ同期すれば、生産性は2倍になります。
+                </p>
             </div>
 
-            <div class="step-box">
-                <h3
-                    style="margin-top:0; border:none; padding:0; justify-content:center; text-align:center; color:#e91e63;">
-                    <i class="fa-solid fa-sync"></i> 完全図解：PC⇄スマホ連携フロー
+            <!-- Detailed Steps -->
+            <div class="step-container">
+                <h3 style="color:#e91e63; text-align:center; border:none;">
+                    <i class="fa-solid fa-shoe-prints"></i> 実践・詳細ワークフロー
                 </h3>
-                <p style="text-align:center; color:#666; margin-bottom:40px;">この手順通りにやれば、絶対に迷いません。</p>
 
-                <ul class="step-list">
-                    <li>
-                        <h4>1. アカウントの統一 (Identity Check)</h4>
-                        <div class="step-desc">
-                            <p>これが全ての前提です。別々のアカウントになっていないか確認してください。</p>
-                            <ul>
-                                <li><strong>PC:</strong> ブラウザで <a href="https://www.capcut.com/"
-                                        target="_blank">capcut.com</a> にアクセスし、Googleアカウント等でログイン。</li>
-                                <li><strong>スマホ:</strong> CapCutアプリを開き、右下の「マイページ」から<strong>上記と全く同じアカウント</strong>でログイン。
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <h4>2. PCで素材を「スペース」にアップ (Upload)</h4>
-                        <div class="step-desc">
-                            <p>PCで準備した台本（テキストファイルやメモ）や、画像・動画などの素材をクラウドにあげます。</p>
-                            <ol>
-                                <li>PCのCapCutホーム画面左側の<strong>「スペース (Space)」</strong>をクリック。</li>
-                                <li>「アップロード」ボタンを押し、PC内にある素材ファイルを選択。</li>
-                                <li>アップロード完了のバーが出るまで待つ。</li>
-                            </ol>
-                        </div>
-                    </li>
-                    <li>
-                        <h4>3. スマホで素材を受け取る (Sync)</h4>
-                        <div class="step-desc">
-                            <p>ここがポイントです。スマホアプリのどこにあるか迷いやすいです。</p>
-                            <ol>
-                                <li>スマホでCapCutアプリを開く。</li>
-                                <li>下部メニューの「編集」タブを選択。</li>
-                                <li>画面上部（またはプロジェクト一覧の近く）にある<strong>「スペース」</strong>という項目、またはクラウドアイコンをタップ。</li>
-                                <li>PCで上げたファイルが表示されていれば成功！ここからダウンロードして編集に使います。</li>
-                            </ol>
-                        </div>
-                    </li>
-                    <li>
-                        <h4>4. スマホで編集 & 投稿 (Edit & Post)</h4>
-                        <div class="step-desc">
-                            <p>素材がスマホに入ればこっちのものです。</p>
-                            <ul>
-                                <li><strong>テキスト読み上げ:</strong> コピーした台本を「テキスト」機能で貼り付け → 読み上げ機能でナレーション化。</li>
-                                <li><strong>自動キャプション:</strong> ナレーションから自動で字幕を生成。</li>
-                                <li>完成したら右上の「エクスポート」→「TikTokでシェア」で一発投稿！</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <h4><span
+                            style="background:#e91e63; color:#fff; padding:2px 8px; border-radius:4px; font-size:0.8em; margin-right:10px;">Step
+                            1</span> AIで台本を作る (PC)</h4>
+                    <p>まずは動画の「設計図」となる台本を作ります。GeminiやChatGPTを使えば一瞬です。</p>
+                    <pre class="mermaid">
+                        sequenceDiagram
+                            participant U as User
+                            participant AI as Gemini/ChatGPT
+                            U->>AI: プロンプト入力
+                            Note right of AI: 300文字/ショート動画用
+                            AI-->>U: 感動的な台本を出力
+                    </pre>
+                    <p>以下のプロンプトをAIにコピペして使ってみてください。</p>
+                    <div class="code-box">生まれつき人生勝ち組の人の誕生日ランキングトップ5という台本を作ってください。文字数は300文字程度。ショート動画用です。</div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <h4><span
+                            style="background:#e91e63; color:#fff; padding:2px 8px; border-radius:4px; font-size:0.8em; margin-right:10px;">Step
+                            2</span> AIで画像を生成する (PC)</h4>
+                    <p>台本ができたら、背景に使う画像を用意します。これもAI（Adobe FireflyやMidjourney、ChatGPTのDALL-E3など）に頼りましょう。</p>
+                    <pre class="mermaid">
+                        graph LR
+                            A[💡 アイデア] --> B(プロンプト入力)
+                            B --> C[🖼️ 画像生成AI]
+                            C --> D{高品質な画像}
+                            style D fill:#e91e63,color:#fff,stroke:none
+                    </pre>
+                    <p>例えばこんなプロンプトで、目を引く画像を生成します。</p>
+                    <div class="code-box">女性で宝くじに大当たりして喜んでいる画像を作成してください。写真リアル、高画質、YouTubeサムネイル風。</div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <h4><span
+                            style="background:#2196f3; color:#fff; padding:2px 8px; border-radius:4px; font-size:0.8em; margin-right:10px;">Step
+                            3</span> クラウド連携 (Space)</h4>
+                    <p>ここがプロの技。PCで作った素材を、ケーブルを使わずにスマホへ送ります。CapCutのブラウザ版を使います。</p>
+                    <pre class="mermaid">
+                        graph LR
+                            A[💻 PC: 画像・台本] -->|ドラッグ&ドロップ| B(☁️ CapCut Space)
+                            B -.->|自動同期| C[📱 スマホ: CapCutアプリ]
+                            style B fill:#e0f7fa,stroke:#00bcd4,stroke-width:2px
+                    </pre>
+                    <p style="background:#fafafa; padding:10px; border-radius:4px;">
+                        <strong>手順:</strong> CapCutブラウザ版にログイン > 左側の「スペース」を選択 > 「アップロード」ボタンからファイルをアップするだけ。
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <h4><span
+                            style="background:#2196f3; color:#fff; padding:2px 8px; border-radius:4px; font-size:0.8em; margin-right:10px;">Step
+                            4</span> スマホで編集 & 投稿</h4>
+                    <p>素材がスマホに入ればこっちのものです。CapCutアプリの最強機能を使います。</p>
+                    <pre class="mermaid">
+                        graph TD
+                            A[📂 Spaceから読込] --> B[🗣️ テキスト読み上げ]
+                            B --> C[🔤 自動キャプション]
+                            C --> D[✨ エフェクト追加]
+                            D --> E[🎥 TikTokへアップ]
+                            style E fill:#000,color:#fff,stroke:none
+                    </pre>
+                    <p>
+                        <strong>テキスト読み上げのコツ:</strong><br>
+                        台本を「テキスト」として貼り付けた後、そのテキストを選択して「読み上げ」機能をタップ。「ボウヨミ」や「カワボ」など好きな声を選べば、ナレーションの完成です。
+                    </p>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin:60px 0 40px;">
+                <a href="index_dev_notes.html#day4" class="recipe-btn"
+                    style="display:inline-flex; align-items:center; gap:10px; background:#2d3436; color:#fff; padding:15px 30px; border-radius:50px; text-decoration:none; font-weight:bold; font-family:'Noto Sans JP', sans-serif; box-shadow:0 5px 15px rgba(45, 52, 54, 0.3); transition:all 0.2s;">
+                    <i class="fa-solid fa-code" style="color:#00bcd4;"></i> このページのレシピをみる
+                </a>
+                <p style="font-size:0.8rem; color:#b2bec3; margin-top:10px;">
+                    <span style="border-bottom:1px solid #b2bec3;">WEB制作の裏側</span>・実装のヒミツ
+                </p>
             </div>
 
             <div class="quiz-area">
