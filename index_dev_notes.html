@@ -673,7 +673,7 @@
         </header>
 
         <!-- SECTION 1: VISUAL HIERARCHY (Foundation) -->
-        <section>
+        <section data-day="day1">
             <h2><i class="fa-solid fa-layer-group"></i> 1. Visual Hierarchy</h2>
 
             <!-- LV 1 -->
@@ -718,7 +718,7 @@
         </section>
 
         <!-- SECTION 2: CONTEXT AWARENESS (Orientation) -->
-        <section>
+        <section data-day="day1">
             <h2><i class="fa-solid fa-clock"></i> 2. Context Awareness</h2>
 
             <!-- LV 1 -->
@@ -774,7 +774,7 @@
         </section>
 
         <!-- SECTION 3: COGNITIVE LOAD (Information Design) -->
-        <section>
+        <section data-day="day1">
             <h2><i class="fa-solid fa-box"></i> 3. Cognitive Load Reduction</h2>
 
             <div class="badge-viz">
@@ -830,8 +830,130 @@
             </details>
         </section>
 
+        <!-- DAY 2: ALGORITHM & CANVA -->
+        <a id="day2" style="position:relative; top:-100px; display:block;"></a>
+        <div class="day-header" data-day="day2"
+            style="background:#fff; border-left:5px solid #00bcd4; padding:15px; margin-bottom:40px; border-radius:4px; margin-top:80px;">
+            <h3 style="margin:0; font-size:1.2rem;">Vol.1 Day 2: Algorithm & Canva</h3>
+            <p style="margin:5px 0 0; font-size:0.9rem; color:#636e72;">動画埋め込みとレスポンシブ対応</p>
+        </div>
+
+        <section data-day="day2">
+            <h2><i class="fa-solid fa-photo-film"></i> 4. Responsive Embeds</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    どこでも綺麗に見せる</summary>
+                <div class="details-content">
+                    <p><strong>「はみ出さない」という当たり前の難しさ</strong></p>
+                    <p>YouTubeなどの動画をページに貼るとき、そのまま貼るとスマホの画面からはみ出したり、縦横比がおかしくて黒い帯が出たりします。<br>
+                        このページでは、PCで見てもスマホで見ても、常に<strong>「16:9」の美しい比率</strong>を保ったまま、画面幅いっぱいに広がるように計算されています。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Aspect-Ratio
+                    Property</summary>
+                <div class="code-block"><span class="token sel">iframe</span> {
+                    <span class="token prop">width</span>: <span class="token val">100%</span>;
+                    <span class="token prop">height</span>: <span class="token val">auto</span>;
+                    <span class="token prop">aspect-ratio</span>: <span class="token val">16 / 9</span>;
+                    }
+                    <span class="token comment">/* 昔は padding-top: 56.25% とかやってましたね... */</span>
+                </div>
+            </details>
+        </section>
+
+        <!-- DAY 3: PLANNING -->
+        <a id="day3" style="position:relative; top:-100px; display:block;"></a>
+        <div class="day-header" data-day="day3"
+            style="background:#fff; border-left:5px solid #e91e63; padding:15px; margin-bottom:40px; border-radius:4px; margin-top:80px;">
+            <h3 style="margin:0; font-size:1.2rem;">Vol.1 Day 3: Planning</h3>
+            <p style="margin:5px 0 0; font-size:0.9rem; color:#636e72;">カードレイアウトと視線誘導</p>
+        </div>
+
+        <section data-day="day3">
+            <h2><i class="fa-solid fa-table-cells-large"></i> 5. Flexbox Layout</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    カードを並べる技術</summary>
+                <div class="details-content">
+                    <p><strong>情報を「塊（かたまり）」にする</strong></p>
+                    <p>企画のステップなどを箇条書きにするのではなく、「カード」として枠で囲むことで、ユーザーは「これは1つのまとまった情報だ」と直感します。<br>
+                        さらに、それらが横並びになったり縦並びになったり、画面に合わせて柔軟に動く仕組みを取り入れています。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Flex & Gap
+                </summary>
+                <div class="code-block"><span class="token sel">.card-container</span> {
+                    <span class="token prop">display</span>: <span class="token val">flex</span>;
+                    <span class="token prop">flex-wrap</span>: <span class="token val">wrap</span>;
+                    <span class="token prop">gap</span>: <span class="token val">20px</span>;
+                    }
+                </div>
+            </details>
+        </section>
+
+        <!-- DAY 4: SHOOTING -->
+        <a id="day4" style="position:relative; top:-100px; display:block;"></a>
+        <div class="day-header" data-day="day4"
+            style="background:#fff; border-left:5px solid #fdcb6e; padding:15px; margin-bottom:40px; border-radius:4px; margin-top:80px;">
+            <h3 style="margin:0; font-size:1.2rem;">Vol.1 Day 4: Shooting</h3>
+            <p style="margin:5px 0 0; font-size:0.9rem; color:#636e72;">自動採番とステップ表示</p>
+        </div>
+
+        <section data-day="day4">
+            <h2><i class="fa-solid fa-arrow-down-1-9"></i> 6. CSS Counters</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    番号は「手で書かない」</summary>
+                <div class="details-content">
+                    <p><strong>ステップ入力のストレスをゼロに</strong></p>
+                    <p>「1. 構図を決める」「2. カメラを構える」...と手書きで数字を打っていると、途中で手順を入れ替えたくなった時に全ての番号を書き直さないといけません。</p>
+                    <p>プロの現場では、<strong>「順番はPCが勝手に数える」</strong>ように作ります。<br>
+                        こうすることで、手順が増えても減っても、常に正しい番号が自動で振られるようになります。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>:
+                    counter-increment</summary>
+                <div class="code-block"><span class="token sel">ol</span> {
+                    <span class="token prop">counter-reset</span>: <span class="token val">my-step</span>;
+                    }
+                    <span class="token sel">li::before</span> {
+                    <span class="token prop">counter-increment</span>: <span class="token val">my-step</span>;
+                    <span class="token prop">content</span>: <span class="token val">counter(my-step)</span>;
+                    }
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Maintainability</summary>
+                <div class="details-content">
+                    <p><strong>運用保守性の向上 (Maintainability)</strong></p>
+                    <p>コンテンツは「生き物」です。教材の内容は改善され、手順は入れ替わります。<br>
+                        HTML内にハードコードされた数字（Static）は、修正漏れや不整合（Inconsistency）の原因になります。<br>
+                        <strong>「構造（HTML）」から「装飾・順序（CSS）」を分離する</strong>ことは、長期的なコンテンツ運用のコストを下げるための重要なエンジニアリング戦略です。
+                    </p>
+                </div>
+            </details>
+        </section>
+
         <!-- SECTION 4: DUAL-VIEW SYNC (Interaction) -->
-        <section>
+        <section data-day="day1">
             <h2><i class="fa-solid fa-calendar-days"></i> 4. Dual-View Synchronization</h2>
 
             <!-- LV 1 -->
@@ -876,7 +998,7 @@
         </section>
 
         <!-- SECTION 5: ACCESSIBILITY (Layout) -->
-        <section>
+        <section data-day="day1">
             <h2><i class="fa-solid fa-hand-pointer"></i> 5. Accessibility</h2>
 
             <!-- LV 1 -->
@@ -924,7 +1046,7 @@
         </section>
 
         <!-- SECTION 6: ZERO MAINTENANCE (Automation) -->
-        <section>
+        <section data-day="day1">
             <h2><i class="fa-solid fa-robot"></i> 6. Zero Maintenance Logic</h2>
 
             <!-- LV 1 -->
@@ -986,7 +1108,7 @@
         </section>
 
         <!-- SECTION 7: DEBUG STORIES (NEW) -->
-        <section class="debug-section">
+        <section class="debug-section" data-day="common">
             <h2><i class="fa-solid fa-bug"></i> 7. Debug Stories: エンジニアの「やらかし」図鑑</h2>
 
             <div class="debug-intro">
@@ -1132,13 +1254,35 @@
         // Auto-handle "Recipe" links (Direct Access)
         window.addEventListener('DOMContentLoaded', () => {
             if (window.location.hash) {
-                // Just Show a welcome toast to indicate context
+                const day = window.location.hash.replace('#', ''); // e.g., 'day2'
+
+                // Filter Content: Hide sections that don't match the day (and aren't common)
+                // We use data-day attributes. 
+                // data-day="day1", "day2", "day3", "day4", "common"
+
+                const sections = document.querySelectorAll('[data-day]');
+                sections.forEach(sec => {
+                    const targetDay = sec.dataset.day;
+                    if (targetDay !== 'common' && targetDay !== day) {
+                        sec.style.display = 'none';
+                    }
+                });
+
+                // Update Header or Toast to reflect the context
                 const toast = document.getElementById('toast');
-                toast.textContent = "📖 Recipe Mode Activated";
+                toast.textContent = `📖 Recipe Mode: ${DayName(day)}`;
                 toast.classList.add('show');
                 setTimeout(() => toast.classList.remove('show'), 4000);
             }
         });
+
+        function DayName(slug) {
+            if (slug === 'day1') return 'Vol.1 Day 1';
+            if (slug === 'day2') return 'Vol.1 Day 2';
+            if (slug === 'day3') return 'Vol.1 Day 3';
+            if (slug === 'day4') return 'Vol.1 Day 4';
+            return 'Guest';
+        }
     </script>
 </body>
 
