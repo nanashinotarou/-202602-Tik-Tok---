@@ -1119,25 +1119,24 @@
 
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 4000);
+
+            // If we came from a specific "Recipe" link (hash exists), scroll to it
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.querySelector(window.location.hash);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 300);
+            }
         }
 
         // Auto-handle "Recipe" links (Direct Access)
         window.addEventListener('DOMContentLoaded', () => {
             if (window.location.hash) {
-                // If accessing via #hash (e.g. #day2), skip the modal
-                // and default to "Engineer Mode" (Show Code)
-                setMode('lv2');
-
-                // Show a welcome toast
+                // Just Show a welcome toast to indicate context
                 const toast = document.getElementById('toast');
-                toast.textContent = "🚀 Recipe Loaded: Engineer Mode";
+                toast.textContent = "📖 Recipe Mode Activated";
                 toast.classList.add('show');
-
-                // Force scroll to target after a slight delay (to ensure layout settles)
-                setTimeout(() => {
-                    const target = document.querySelector(window.location.hash);
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 500);
+                setTimeout(() => toast.classList.remove('show'), 4000);
             }
         });
     </script>
