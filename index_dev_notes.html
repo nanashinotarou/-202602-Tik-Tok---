@@ -1108,6 +1108,59 @@
         </section>
 
         <!-- SECTION 7: DEBUG STORIES (NEW) -->
+        <!-- DAY 5: EDITING -->
+        <a id="day5" style="position:relative; top:-100px; display:block;"></a>
+        <div class="day-header" data-day="day5" id="section9"
+            style="background:#fff; border-left:5px solid #9c27b0; padding:15px; margin-bottom:40px; border-radius:4px; margin-top:80px;">
+            <h3 style="margin:0; font-size:1.2rem;">Vol.1 Day 5: Editing</h3>
+            <p style="margin:5px 0 0; font-size:0.9rem; color:#636e72;">重ね順と配置の魔術</p>
+        </div>
+
+        <section data-day="day5">
+            <h2><i class="fa-solid fa-layer-group"></i> 9. z-index & Stacking Contexts</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    ポスターの重ね順</summary>
+                <div class="details-content">
+                    <p><strong>「上にあるか、下にあるか」</strong></p>
+                    <p>Webサイトの画面は平らに見えますが、実は「奥行き」があります。<br>
+                        壁にポスターを貼るとき、新しいポスターを上に貼ると、下のポスターは隠れますよね。<br>
+                        「はめ込み合成」で動画の上に動画を乗せるのと同じで、Webでも「箱の上に箱を重ねる」ことができます。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: z-index &
+                    position</summary>
+                <div class="code-block"><span class="token sel">.overlay-item</span> {
+                    <span class="token prop">position</span>: <span class="token val">absolute</span>;
+                    <span class="token prop">top</span>: <span class="token val">10px</span>;
+                    <span class="token prop">z-index</span>: <span class="token val">100</span>;
+                    }
+                </div>
+                <div class="details-content">
+                    <p><code>position: absolute</code> (絶対配置) で場所を指定し、<code>z-index</code> (Z軸のインデックス) で「高さ」を指定します。<br>
+                        数字が大きいほど「手前（上）」に来ます。z-index: 9999 とかやりがちですが、管理できなくなるのでやめましょう。</p>
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Attention Management</summary>
+                <div class="details-content">
+                    <p><strong>視線誘導とモーダル設計</strong></p>
+                    <p>「見てほしいもの」を物理的に（Z軸的に）一番手前に置くことで、ユーザーの意識を強制的にそこに集中させます。<br>
+                        モーダルウィンドウや、追従するFABボタン（Action Button）などがこれに当たります。<br>
+                        多用しすぎると「鬱陶しいポップアップ」になるので、ここぞという時だけ使う「切り札」です。</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- SECTION 7: DEBUG STORIES (NEW) -->
         <section class="debug-section" data-day="common">
             <h2><i class="fa-solid fa-bug"></i> 7. Debug Stories: エンジニアの「やらかし」図鑑</h2>
 
@@ -1281,6 +1334,7 @@
             if (slug === 'day2') return 'Vol.1 Day 2';
             if (slug === 'day3') return 'Vol.1 Day 3';
             if (slug === 'day4') return 'Vol.1 Day 4';
+            if (slug === 'day5') return 'Vol.1 Day 5';
             return 'Guest';
         }
     </script>
