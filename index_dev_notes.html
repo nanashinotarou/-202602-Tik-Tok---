@@ -1160,6 +1160,66 @@
             </details>
         </section>
 
+        <!-- SECTION 10: CSS ANIMATION (Motion) -->
+        <a id="day6" style="position:relative; top:-100px; display:block;"></a>
+        <div class="day-header" data-day="day6" id="section10"
+            style="background:#1a1a2e; color:#fff; border-left:5px solid #00fff5; padding:15px; margin-bottom:40px; border-radius:4px; margin-top:80px;">
+            <h3 style="margin:0; font-size:1.2rem;">Vol.1 Day 6: Sound</h3>
+            <p style="margin:5px 0 0; font-size:0.9rem; color:#ccc;">目に見えない「音」を可視化する</p>
+        </div>
+
+        <section data-day="day6">
+            <h2><i class="fa-solid fa-film"></i> 10. CSS Keyframes & Animation</h2>
+
+            <!-- LV 1 -->
+            <details class="lv-concept">
+                <summary class="concept-summary"><i class="fa-solid fa-lightbulb"></i> <strong>Concept (Lv1)</strong>:
+                    パラパラ漫画の原理</summary>
+                <div class="details-content">
+                    <p><strong>「0%から100%までの物語を書く」</strong></p>
+                    <p>アニメーションとは、静止画の連続です。Webでも「0%の状態」と「100%の状態」を決めて、
+                        その間を自動補完（Tween）させることで動きを作ります。<br>
+                        今回の「動く波形（オーディオスペクトラム）」も、ただの縦棒を「伸びたり縮んだり」させているだけです。</p>
+                </div>
+            </details>
+
+            <!-- LV 2 -->
+            <details class="lv-code">
+                <summary class="code-summary"><i class="fa-solid fa-code"></i> <strong>Code (Lv2)</strong>: Keyframes &
+                    Delay</summary>
+                <div class="code-block"><span class="token sel">@keyframes</span> bounce-bar {
+                    <span class="token prop">0%, 100%</span> { <span class="token prop">height</span>: <span
+                        class="token val">10%</span>; }
+                    <span class="token prop">50%</span> { <span class="token prop">height</span>: <span
+                        class="token val">100%</span>; }
+                    }
+
+                    <span class="token sel">.bar:nth-child(1)</span> { <span class="token prop">animation-delay</span>:
+                    <span class="token val">0.0s</span>; }
+                    <span class="token sel">.bar:nth-child(2)</span> { <span class="token prop">animation-delay</span>:
+                    <span class="token val">0.1s</span>; }
+                </div>
+                <div class="details-content">
+                    <p>同じアニメーション（伸び縮み）を適用した複数の棒に対し、<code>animation-delay</code>
+                        で開始時間を0.1秒ずつずらすことで、全体として「波打っている」ような有機的な動きを表現しています。<br>
+                        GPUアクセラレーションが効くプロパティ（transform, opacity）を使うのが定石ですが、今回は簡易的にheightを使っています。</p>
+                </div>
+            </details>
+
+            <!-- LV 3 -->
+            <details class="lv-arch">
+                <summary class="arch-summary"><i class="fa-solid fa-chess-knight"></i> <strong>Strategy (Lv3)</strong>:
+                    Micro-interactions</summary>
+                <div class="details-content">
+                    <p><strong>「生きている」と感じさせる演出</strong></p>
+                    <p>人間は「動くもの」に本能的に視線を奪われます。<br>
+                        静的なページの中に1つだけ動く要素（マイクロインタラクション）を入れることで、
+                        「このページは現在進行形で動いている（ライブ感）」という錯覚を与え、ユーザーの滞在時間を延ばす効果があります。<br>
+                        今回の「音」のテーマに合わせ、視覚でも音を感じさせるUXで没入感を高めています。</p>
+                </div>
+            </details>
+        </section>
+
         <!-- SECTION 7: DEBUG STORIES (NEW) -->
         <section class="debug-section" data-day="common">
             <h2><i class="fa-solid fa-bug"></i> 7. Debug Stories: エンジニアの「やらかし」図鑑</h2>
@@ -1335,6 +1395,7 @@
             if (slug === 'day3') return 'Vol.1 Day 3';
             if (slug === 'day4') return 'Vol.1 Day 4';
             if (slug === 'day5') return 'Vol.1 Day 5';
+            if (slug === 'day6') return 'Vol.1 Day 6';
             return 'Guest';
         }
     </script>

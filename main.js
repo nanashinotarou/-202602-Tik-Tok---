@@ -328,6 +328,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ]);
 
+
+    // --- DAY 6 QUIZ ---
+    initQuiz('quiz-vol01-6', [
+        {
+            q: "Suno AIの無料プラン（Basic Plan）で作成した楽曲の商用利用について正しいものは？",
+            options: { A: "自由に商用利用可能", B: "クレジット表記すれば可能", C: "不可（収益化NG）", D: "TikTokのみ可能" },
+            correct: "C",
+            rationale: "無料プランの楽曲は商用利用権が付与されません。収益化する動画に使う場合は、必ず有料プラン（Pro以上）への加入が必要です。"
+        },
+        {
+            q: "TikTok動画において「音（サウンド）」が重要視される理由は？",
+            options: { A: "90%以上のユーザーが「音アリ」で視聴しているから", B: "音が大きい方が目立つから", C: "画質をごまかせるから", D: "特に重要ではない" },
+            correct: "A",
+            rationale: "TikTokは「音で遊ぶアプリ」として認知されており、ほぼ全てのユーザーが音声をオンにして視聴するため、音のクオリティが直帰率に直結します。"
+        },
+        {
+            q: "動画の長さに合わせてBGMを自動生成・調整できるAIツールは？",
+            options: { A: "ChatGPT", B: "SOUNDRAW", C: "Midjourney", D: "Excel" },
+            correct: "B",
+            rationale: "SOUNDRAWは、指定した秒数やムードに合わせてBGMを生成できるため、動画編集の尺合わせに最適です。"
+        },
+        {
+            q: "Suno AIで、歌詞や曲調を細かく指定して作曲するモードの名前は？",
+            options: { A: "Simple Mode", B: "Auto Mode", C: "Custom Mode", D: "Pro Mode" },
+            correct: "C",
+            rationale: "「Custom Mode」に切り替えることで、自作の歌詞（Lyrics）や具体的なスタイル（Style of Music）を指定できます。"
+        },
+        {
+            q: "本日の目標投稿本数は？",
+            options: { A: "1本", B: "3本以上", C: "10本", D: "0本" },
+            correct: "B",
+            rationale: "AIツールを使えば、音楽素材も無限に生成できます。まずは3本投稿し、音と映像のシンクロを体感しましょう。"
+        }
+    ]);
+
     updateLatestButton();
 
 });
