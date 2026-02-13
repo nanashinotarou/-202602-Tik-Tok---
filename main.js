@@ -332,34 +332,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- DAY 6 QUIZ ---
     initQuiz('quiz-vol01-6', [
         {
-            q: "Suno AIの無料プラン（Basic Plan）で作成した楽曲の商用利用について正しいものは？",
-            options: { A: "自由に商用利用可能", B: "クレジット表記すれば可能", C: "不可（収益化NG）", D: "TikTokのみ可能" },
-            correct: "C",
-            rationale: "無料プランの楽曲は商用利用権が付与されません。収益化する動画に使う場合は、必ず有料プラン（Pro以上）への加入が必要です。"
+            q: "TikTok動画で「冒頭から視聴者を掴む」ために、Suno AIで使うべき重要タグは？",
+            options: { A: "[Intro] (前奏)", B: "[Hook] または [Chorus] (サビ)", C: "[Outro] (後奏)", D: "[Verse] (Aメロ)" },
+            correct: "B",
+            rationale: "TikTokは「最初の3秒」が勝負です。ダラダラとした前奏を入れず、[Hook]や[Chorus]タグを使って、0秒地点からサビ（盛り上がり）を配置するのが鉄則です。"
         },
         {
-            q: "TikTok動画において「音（サウンド）」が重要視される理由は？",
-            options: { A: "90%以上のユーザーが「音アリ」で視聴しているから", B: "音が大きい方が目立つから", C: "画質をごまかせるから", D: "特に重要ではない" },
+            q: "Suno AI無料プラン（Basic）で作った曲を、YouTubeショート(収益化済み)で使うことは？",
+            options: { A: "クレジット表記すればOK", B: "できない（商用利用不可）", C: "1分以内ならOK", D: "バレなければOK" },
+            correct: "B",
+            rationale: "無料プランの楽曲には商用利用権が付与されません。収益化する動画に使用する場合、必ず「Pro Plan（有料）」加入中に生成した楽曲を使用してください。"
+        },
+        {
+            q: "SOUNDRAWにおいて、動画の構成に合わせて曲の「盛り上がり」を部分ごとに調整する機能は？",
+            options: { A: "Length Adjustment", B: "Energy Map (ブロック編集)", C: "Tempo Slider", D: "Genre Filter" },
+            correct: "B",
+            rationale: "プロモード（Edit）の「Energy Map」を使えば、イントロは静かに(Low)、サビは激しく(High)といった調整がブロック単位で可能です。"
+        },
+        {
+            q: "動画の「カット割り」や「動き」に合わせて、音楽のタイミングをシンクロさせる技法を何と呼ぶ？",
+            options: { A: "音ハメ", B: "音ズレ", C: "フェードアウト", D: "リップシンク" },
             correct: "A",
-            rationale: "TikTokは「音で遊ぶアプリ」として認知されており、ほぼ全てのユーザーが音声をオンにして視聴するため、音のクオリティが直帰率に直結します。"
+            rationale: "「音ハメ」は、映像と音のキメを一致させることで、視聴者に快感（ドーパミン）を与える重要なテクニックです。"
         },
         {
-            q: "動画の長さに合わせてBGMを自動生成・調整できるAIツールは？",
-            options: { A: "ChatGPT", B: "SOUNDRAW", C: "Midjourney", D: "Excel" },
+            q: "Suno AIで「疾走感のある女性ボーカル曲」を作りたい場合、適切なスタイル指定は？",
+            options: { A: "Slow Ballad, Male Vocals", B: "Future Bass, High Tempo, Female Vocals", C: "Jazz, Relaxing", D: "Acoustic, Guitar" },
             correct: "B",
-            rationale: "SOUNDRAWは、指定した秒数やムードに合わせてBGMを生成できるため、動画編集の尺合わせに最適です。"
-        },
-        {
-            q: "Suno AIで、歌詞や曲調を細かく指定して作曲するモードの名前は？",
-            options: { A: "Simple Mode", B: "Auto Mode", C: "Custom Mode", D: "Pro Mode" },
-            correct: "C",
-            rationale: "「Custom Mode」に切り替えることで、自作の歌詞（Lyrics）や具体的なスタイル（Style of Music）を指定できます。"
-        },
-        {
-            q: "本日の目標投稿本数は？",
-            options: { A: "1本", B: "3本以上", C: "10本", D: "0本" },
-            correct: "B",
-            rationale: "AIツールを使えば、音楽素材も無限に生成できます。まずは3本投稿し、音と映像のシンクロを体感しましょう。"
+            rationale: "「Future Bass」「High Tempo」「Female Vocals」などのキーワードを組み合わせることで、TikTokで人気のある疾走感・バズ系の楽曲が生成されやすくなります。"
         }
     ]);
 
